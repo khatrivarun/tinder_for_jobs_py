@@ -127,8 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/tinder_for_jobs_py.iml
-.idea/vcs.xml
+.idea/

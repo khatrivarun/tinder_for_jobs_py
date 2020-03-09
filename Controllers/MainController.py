@@ -9,11 +9,10 @@ class MainController:
             (
                 email_id TEXT UNIQUE,
                 name CHARACTER(20) NOT NULL,
-                dob DATETIME NOT NULL,
+                dob DATE NOT NULL,
                 gender VARCHAR(1) NOT NULL,
                 age INTEGER(3) NOT NULL,
                 tel_no INTEGER(11) NOT NULL,
-                cv BLOB NOT NULL,
                 experience INTEGER(3) NOT NULL,
                 password TEXT NOT NULL
             );
@@ -55,5 +54,3 @@ class MainController:
                 domain_name VARCHAR(100) NOT NULL 
             );
         ''')
-
-        self.conn.close()
