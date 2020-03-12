@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class MainController:
+class CreateDatabase:
     def __init__(self):
         self.conn = sqlite3.connect('database.db')
 
@@ -9,11 +9,10 @@ class MainController:
             (
                 email_id TEXT UNIQUE,
                 name CHARACTER(20) NOT NULL,
-                dob DATETIME NOT NULL,
+                dob DATE NOT NULL,
                 gender VARCHAR(1) NOT NULL,
                 age INTEGER(3) NOT NULL,
                 tel_no INTEGER(11) NOT NULL,
-                cv BLOB NOT NULL,
                 experience INTEGER(3) NOT NULL,
                 password TEXT NOT NULL
             );
@@ -51,9 +50,11 @@ class MainController:
 
         self.conn.execute(''' CREATE TABLE IF NOT EXISTS domain
             (
-                applicant_aadhar REFERENCES applicant(email_id) NOT NULL,
+                applicant_email REFERENCES applicant(email_id) NOT NULL,
                 domain_name VARCHAR(100) NOT NULL 
             );
         ''')
 
-        self.conn.close()
+
+if __name__ == '__main__':
+    CreateDatabase()
