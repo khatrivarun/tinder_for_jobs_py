@@ -2,7 +2,7 @@ from tkinter import *
 
 
 class LoginRegister(Frame):
-    def __init__(self, master, widthW, heightH):
+    def __init__(self, widthW, heightH):
         super().__init__()
         self.widthW = widthW
         self.heightH = heightH
@@ -42,7 +42,7 @@ class LoginRegister(Frame):
                                            font=('Chalet New York', 20))
         self.loginTextLabelWelBack.place(x=245, y=175)
 
-        self.loginTextLabelPrompt = Label(self.loginFrame, text='Restart Your Job Hunt By Logging In.', bg='black',
+        self.loginTextLabelPrompt = Label(self.loginFrame, text='Restart Your Search By Logging In.', bg='black',
                                           fg='white',
                                           font=('Chalet New York', 10))
         self.loginTextLabelPrompt.place(x=235, y=350)
@@ -70,6 +70,6 @@ class LoginRegister(Frame):
 top = Tk()
 top.title("tinder For Jobs")
 w, h = top.winfo_screenwidth(), top.winfo_screenheight()
-log = LoginRegister(top, w, h)
+log = LoginRegister(w, h)
 top.geometry("%dx%d+0+0" % (w, h))
 top.mainloop()
