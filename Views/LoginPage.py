@@ -2,11 +2,11 @@ from tkinter import *
 
 
 class Login(Frame):
-    def __init__(self):
-        # logreg.destroy()
+    def __init__(self, logreg):
+        logreg.destroy()
         loginTk = Tk()
         loginTk.title("tinder For Jobs")
-        w, h =loginTk.winfo_screenwidth(), loginTk.winfo_screenheight()
+        w, h = loginTk.winfo_screenwidth(), loginTk.winfo_screenheight()
         loginTk.geometry("%dx%d+0+0" % (w, h))
         super().__init__()
         self.widthW = w
@@ -30,51 +30,60 @@ class Login(Frame):
         # self.grid_columnconfigure(0, uniform='g1')
         # self.grid_columnconfigure(1, uniform='g1')
         """FRAME ONE FOR LOGO"""
-        welcomeLabel1 = Label(textFrame, text="tinder", bg='blue', fg='white', font=('Chalet New York', 50))
+        welcomeLabel1 = Label(textFrame, text="tinder", bg='black', fg='white', font=('Chalet New York', 50))
         welcomeLabel2 = Label(textFrame, text="for Jobs", bg='black', fg='white', font=('Chalet New York', 20))
         welcomeLabel1.place(x=20, y=30)
         welcomeLabel2.place(x=192, y=65)
 
         """FRAME TWO: LOGIN For Applicant"""
+
+        applicantLabel = Label(loginFrame, text='Applicants Login Here', bg='black', fg='white',
+                               font=('Chalet New York', 30))
+        applicantLabel.place(x=155, y=20)
+
+        textLabelEmailIdApplicant = Label(loginFrame, text='Email Address: ', bg='black', fg='white',
+                                          font=('Chalet New York', 15))
+        textLabelEmailIdApplicant.place(x=150, y=120)
+
+        self.emailIdEntryApplicant = Entry(loginFrame, bg='#434343', fg='white', width=40)
+        self.emailIdEntryApplicant.place(x=300, y=126)
+
+        textLabelPasswordApplicant = Label(loginFrame, text='Password: ', bg='black', fg='white',
+                                           font=('Chalet New York', 15))
+        textLabelPasswordApplicant.place(x=189, y=195)
+
+        self.passwordEntryApplicant = Entry(loginFrame, bg='#434343', fg='white', width=40, show='*')
+        self.passwordEntryApplicant.place(x=300, y=201)
+
         applicantloginButton = Button(loginFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
                                       activebackground='#666666')
         applicantloginButton.place(x=266, y=293)
 
-        applicantLabel = Label(loginFrame, text='Applicants Fill Here: ', bg='black', fg='white',
+        """FRAME THREE: Login For Company"""
+        recruiterLabel = Label(registerFrame, text='Recruiters Login Here', bg='black', fg='white',
                                font=('Chalet New York', 30))
-        applicantLabel.place(x=175, y=0)
+        recruiterLabel.place(x=145, y=20)
 
-        TextLabelEmailId = Label(loginFrame, text='Email Address: ', bg='black', fg='white',
-                                 font=('Chalet New York', ))
-        TextLabelEmailId.place(x=240, y=175)
+        textLabelEmailIdRecruiter = Label(registerFrame, text='Email Address: ', bg='black', fg='white',
+                                          font=('Chalet New York', 15))
+        textLabelEmailIdRecruiter.place(x=150, y=120)
 
-        TextLabelPrompt = Label(loginFrame, text='Restart Your Search By Logging In.', bg='black',
-                                fg='white',
-                                font=('Chalet New York', 10))
-        TextLabelPrompt.place(x=235, y=350)
+        self.emailIdEntryRecruiter = Entry(registerFrame, bg='#434343', fg='white', width=40)
+        self.emailIdEntryRecruiter.place(x=300, y=126)
 
-        """FRAME THREE FOR REGISTERING"""
-        self.TextLabelFreshUser = Label(registerFrame, text='Fresher Here?', bg='black', fg='white',
-                                        font=('Chalet New York', 30))
-        self.TextLabelFreshUser.place(x=215, y=100)
+        textLabelPasswordRecruiter = Label(registerFrame, text='Password: ', bg='black', fg='white',
+                                           font=('Chalet New York', 15))
+        textLabelPasswordRecruiter.place(x=189, y=195)
 
-        self.TextLabelFirstSteps = Label(registerFrame, text='Take Your First Step!', bg='black',
-                                         fg='white',
-                                         font=('Chalet New York', 20))
-        self.TextLabelFirstSteps.place(x=206, y=175)
+        self.passwordEntryRecruiter = Entry(registerFrame, bg='#434343', fg='white', width=40, show='*')
+        self.passwordEntryRecruiter.place(x=300, y=201)
 
-        self.TextLabelPrompt = Label(registerFrame, text='Register Your Details.', bg='black',
-                                     fg='white',
-                                     font=('Chalet New York', 10))
-        self.TextLabelPrompt.place(x=277, y=350)
-
-        self.register = Button(registerFrame, text='Register', width=20, height=2, bg='#434343', fg='white',
-                               activebackground='#666666')
-        self.register.place(x=266, y=293)
+        loginRecruiter = Button(registerFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
+                          activebackground='#666666')
+        loginRecruiter.place(x=266, y=293)
 
 
-def createLogin():
-    log = Login()
+def createLogin(logreg):
+    log = Login(logreg)
 
 
-createLogin()

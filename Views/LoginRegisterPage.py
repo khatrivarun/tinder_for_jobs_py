@@ -3,6 +3,8 @@ from tkinter import *
 
 logReg = Tk()
 
+def passwordCheck():
+    pass
 
 class LoginRegister(Frame):
     def __init__(self):
@@ -39,7 +41,7 @@ class LoginRegister(Frame):
 
         """FRAME TWO FOR LOGIN"""
         self.login = Button(self.loginFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
-                            activebackground='#666666' """, command=lambda: createLogin(logReg)""")
+                            activebackground='#666666', command=lambda: createLogin(logReg))
         self.login.place(x=266, y=293)
 
         self.loginTextLabelVetUser = Label(self.loginFrame, text='Veteran User?', bg='black', fg='white',
