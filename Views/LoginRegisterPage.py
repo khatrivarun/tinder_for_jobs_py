@@ -1,14 +1,22 @@
+from Views.LoginPage import *
 from tkinter import *
+
+logReg = Tk()
 
 
 class LoginRegister(Frame):
-    def __init__(self, widthW, heightH):
+    def __init__(self):
+        logReg.title("tinder For Jobs")
+        w, h = logReg.winfo_screenwidth(), logReg.winfo_screenheight()
+        logReg.geometry("%dx%d+0+0" % (w, h))
+
         super().__init__()
-        self.widthW = widthW
-        self.heightH = heightH
-        self.configure(background='blue')
+        self.widthW = w
+        self.heightH = h
+        self.configure(background='green')
         self.pack(fill='both', expand=True)
         self.createWidgets()
+        logReg.mainloop()
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -31,8 +39,8 @@ class LoginRegister(Frame):
 
         """FRAME TWO FOR LOGIN"""
         self.login = Button(self.loginFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
-                            activebackground='#666666')
-        self.login.place(x = 266, y = 293)
+                            activebackground='#666666' """, command=lambda: createLogin(logReg)""")
+        self.login.place(x=266, y=293)
 
         self.loginTextLabelVetUser = Label(self.loginFrame, text='Veteran User?', bg='black', fg='white',
                                            font=('Chalet New York', 30))
@@ -64,12 +72,7 @@ class LoginRegister(Frame):
 
         self.register = Button(self.registerFrame, text='Register', width=20, height=2, bg='#434343', fg='white',
                                activebackground='#666666')
-        self.register.place(x=266, y = 293)
+        self.register.place(x=266, y=293)
 
 
-top = Tk()
-top.title("tinder For Jobs")
-w, h = top.winfo_screenwidth(), top.winfo_screenheight()
-log = LoginRegister(w, h)
-top.geometry("%dx%d+0+0" % (w, h))
-top.mainloop()
+logRegister = LoginRegister()
