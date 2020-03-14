@@ -32,15 +32,15 @@ class LoginRegister(Frame):
         """FRAME TWO FOR LOGIN"""
         self.login = Button(self.loginFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
                             activebackground='#666666')
-        self.login.place(x=(self.widthW / 4) - 75, y=(self.heightH / 4) + 100)
+        self.login.place(x = 266, y = 293)
 
         self.loginTextLabelVetUser = Label(self.loginFrame, text='Veteran User?', bg='black', fg='white',
                                            font=('Chalet New York', 30))
-        self.loginTextLabelVetUser.place(x=(self.widthW / 4) - 123, y=100)
+        self.loginTextLabelVetUser.place(x=210, y=100)
 
         self.loginTextLabelWelBack = Label(self.loginFrame, text='Welcome Back!', bg='black', fg='white',
                                            font=('Chalet New York', 20))
-        self.loginTextLabelWelBack.place(x=245, y=175)
+        self.loginTextLabelWelBack.place(x=240, y=175)
 
         self.loginTextLabelPrompt = Label(self.loginFrame, text='Restart Your Search By Logging In.', bg='black',
                                           fg='white',
@@ -50,12 +50,12 @@ class LoginRegister(Frame):
         """FRAME THREE FOR REGISTERING"""
         self.registerTextLabelFreshUser = Label(self.registerFrame, text='Fresher Here?', bg='black', fg='white',
                                                 font=('Chalet New York', 30))
-        self.registerTextLabelFreshUser.place(x=222, y=100)
+        self.registerTextLabelFreshUser.place(x=215, y=100)
 
         self.registerTextLabelFirstSteps = Label(self.registerFrame, text='Take Your First Step!', bg='black',
                                                  fg='white',
                                                  font=('Chalet New York', 20))
-        self.registerTextLabelFirstSteps.place(x=210, y=175)
+        self.registerTextLabelFirstSteps.place(x=206, y=175)
 
         self.registerTextLabelPrompt = Label(self.registerFrame, text='Register Your Details.', bg='black',
                                              fg='white',
@@ -64,12 +64,13 @@ class LoginRegister(Frame):
 
         self.register = Button(self.registerFrame, text='Register', width=20, height=2, bg='#434343', fg='white',
                                activebackground='#666666')
-        self.register.place(x=(self.widthW / 4) - 75, y = (self.heightH / 4) + 100)
+        self.register.place(x=266, y = 293)
 
 
 top = Tk()
 top.title("tinder For Jobs")
 w, h = top.winfo_screenwidth(), top.winfo_screenheight()
 log = LoginRegister(w, h)
+print(f"width: {w} height: {h}")
 top.geometry("%dx%d+0+0" % (w, h))
 top.mainloop()
