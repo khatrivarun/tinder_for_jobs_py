@@ -36,7 +36,7 @@ class LoginRegister(Frame):
 
         self.loginTextLabelVetUser = Label(self.loginFrame, text='Veteran User?', bg='black', fg='white',
                                            font=('Chalet New York', 30))
-        self.loginTextLabelVetUser.place(x=222, y=100)
+        self.loginTextLabelVetUser.place(x=(self.widthW / 4) - 123, y=100)
 
         self.loginTextLabelWelBack = Label(self.loginFrame, text='Welcome Back!', bg='black', fg='white',
                                            font=('Chalet New York', 20))
