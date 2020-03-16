@@ -2,8 +2,8 @@ from tkinter import *
 
 
 class Register(Frame):
-    def __init__(self):
-        # logreg.destroy()
+    def __init__(self,logReg):
+        logReg.destroy()
         registerTk = Tk()
         registerTk.title("tinder For Jobs")
         w, h = registerTk.winfo_screenwidth(), registerTk.winfo_screenheight()
@@ -200,8 +200,8 @@ class Register(Frame):
         # TextLabelPrompt.place(x=277, y=500)
 
 
-def createLogin():
-    log = Register()
+def register(logReg):
+    log = Register(logReg)
 
 
-createLogin()
+

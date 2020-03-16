@@ -41,7 +41,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.RegisterPage">
+  <component name="RunManager" selected="Python.LoginRegisterPage">
     <configuration name="LoginRegisterPage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tinder_for_jobs_py" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -88,8 +88,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.RegisterPage" />
         <item itemvalue="Python.LoginRegisterPage" />
+        <item itemvalue="Python.RegisterPage" />
       </list>
     </recent_temporary>
   </component>
