@@ -5,10 +5,11 @@ from Repositories.ApplicantRepository import ApplicantRepository
 class ApplicantController:
     def __init__(self):
         self.repository = ApplicantRepository()
+        self.hash = HashPassword()
 
     def register(self, applicant_details):
         try:
-            applicant_details['password'] = hash_password(applicant_details['password'])
+            applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
             applicant = self.repository.create(applicant_details)
 
             return applicant
@@ -18,7 +19,7 @@ class ApplicantController:
     def login(self, email, password):
         try:
             applicant = self.repository.get_by_email_id(email)
-            if verify_password(applicant.password, password):
+            if self.hash.verify_password(applicant.password, password):
                 return applicant
             else:
                 raise Exception('Incorrect Password')
@@ -27,7 +28,7 @@ class ApplicantController:
 
     def update(self, applicant_details):
         try:
-            applicant_details['password'] = hash_password(applicant_details['password'])
+            applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
             applicant = self.repository.update(applicant_details)
 
             return applicant
@@ -37,7 +38,7 @@ class ApplicantController:
     def delete(self, email, password):
         try:
             applicant = self.repository.get_by_email_id(email)
-            if verify_password(applicant.password, password):
+            if self.hash.verify_password(applicant.password, password):
                 self.repository.delete(email)
                 return None
             else:

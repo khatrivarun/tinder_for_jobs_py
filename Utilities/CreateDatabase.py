@@ -31,8 +31,8 @@ class CreateDatabase:
             (
                 application_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 job_id REFERENCES job(job_id),
-                company_email_id REFERENCES  company(email_id) NOT NULL,
-                applicant_aadhar REFERENCES  applicant(email_id) NOT NULL,
+                company_email_id TEXT REFERENCES  company(email_id) NOT NULL,
+                applicant_email_id TEXT REFERENCES  applicant(email_id) NOT NULL,
                 response TEXT DEFAULT "Applied"
             );
         ''')
