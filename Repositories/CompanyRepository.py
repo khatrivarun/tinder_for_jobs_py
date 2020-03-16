@@ -1,4 +1,5 @@
 import sqlite3
+from Models.Company import Company
 
 
 class CompanyRepository:
@@ -7,7 +8,6 @@ class CompanyRepository:
         self.cursor = self.connection.cursor()
 
     def create(self, company_details):
-        print(company_details['password'])
         company = Company()
         company.email_id = company_details['email_id']
         company.password = company_details['password']
@@ -41,7 +41,7 @@ class CompanyRepository:
 
     def get_by_email_id(self, email_id):
         company = Company()
-        self.cursor.execute('''SELECT * FROM company WHERE email_id = ?''', email_id)
+        self.cursor.execute('''SELECT * FROM company WHERE email_id = ?''', (email_id,))
         result = self.cursor.fetchone()
         company.email_id = result[0]
         company.name = result[1]

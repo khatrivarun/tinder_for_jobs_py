@@ -2,13 +2,14 @@ from Utilities.HashPassword import *
 from Repositories.CompanyRepository import CompanyRepository
 
 
-class ApplicantController:
+class CompanyController:
     def __init__(self):
         self.repository = CompanyRepository()
+        self.hash = HashPassword()
 
     def register(self, company_details):
         try:
-            company_details['password'] = hash_password(company_details['password'])
+            company_details['password'] = self.hash.hash_password(company_details['password'])
             company = self.repository.create(company_details)
 
             return company
@@ -18,7 +19,7 @@ class ApplicantController:
     def login(self, email, password):
         try:
             company = self.repository.get_by_email_id(email)
-            if verify_password(company.password, password):
+            if self.hash.verify_password(company.password, password):
                 return company
             else:
                 raise Exception('Incorrect Password')
@@ -27,7 +28,7 @@ class ApplicantController:
 
     def update(self, company_details):
         try:
-            company_details['password'] = hash_password(company_details['password'])
+            company_details['password'] = self.hash.hash_password(company_details['password'])
             company = self.repository.update(company_details)
 
             return company
@@ -37,7 +38,7 @@ class ApplicantController:
     def delete(self, email, password):
         try:
             company = self.repository.get_by_email_id(email)
-            if verify_password(company.password, password):
+            if self.hash.verify_password(company.password, password):
                 self.repository.delete(email)
                 return None
             else:

@@ -1,4 +1,5 @@
 import sqlite3
+from Models.Applicant import Applicant
 
 
 class ApplicantRepository:
@@ -43,7 +44,7 @@ class ApplicantRepository:
 
     def get_by_email_id(self, email_id):
         applicant = Applicant()
-        self.cursor.execute('''SELECT * FROM applicant WHERE email_id = ?''', email_id)
+        self.cursor.execute('''SELECT * FROM applicant WHERE email_id = ?''', (email_id,))
         result = self.cursor.fetchone()
         applicant.email_id = result[0]
         applicant.name = result[1]

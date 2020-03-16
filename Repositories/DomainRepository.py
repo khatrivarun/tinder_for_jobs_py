@@ -12,7 +12,7 @@ class DomainRepository:
         domain.applicant_email = email_id
         domain.domain_name = domain_name
 
-        self.connection('''INSERT INTO domain (applicant_email, domain_name) VALUES (?, ?)''', (email_id, domain_name))
+        self.connection.execute('''INSERT INTO domain (applicant_email, domain_name) VALUES (?, ?)''', (email_id, domain_name))
         self.connection.commit()
 
         return domain
