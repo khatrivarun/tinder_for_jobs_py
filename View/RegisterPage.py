@@ -30,26 +30,38 @@ class Register(Frame):
         # self.grid_columnconfigure(0, uniform='g1')
         # self.grid_columnconfigure(1, uniform='g1')
         """FRAME ONE FOR LOGO"""
-        welcomeLabel1 = Label(textFrame, text="tinder", bg='blue', fg='white', font=('Chalet New York', 50))
+        welcomeLabel1 = Label(textFrame, text="tinder", bg='black', fg='white', font=('Chalet New York', 50))
         welcomeLabel2 = Label(textFrame, text="for Jobs", bg='black', fg='white', font=('Chalet New York', 20))
         welcomeLabel1.place(x=20, y=30)
         welcomeLabel2.place(x=192, y=65)
 
         """FRAME TWO: Registration As Applicant"""
-        applicantloginButton = Button(loginFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
-                                      activebackground='#666666')
-        applicantloginButton.place(x=266, y=293)
+
 
         applicantLabel = Label(loginFrame, text='Applicants Fill Here: ', bg='black', fg='white',
                                font=('Chalet New York', 30))
         applicantLabel.place(x=175, y=0)
 
-        TextLabelName = Label(loginFrame, text='Applicant Name: ', bg='black', fg='white',
-                              font=('Chalet New York',))
-        TextLabelName.place(x=195, y=90)
+        TextEmailIDApplicant = Label(loginFrame, text='Email ID: ', bg='black', fg='white',
+                            font=('Chalet New York',))
+        TextEmailIDApplicant.place(x=195, y=85)
 
-        TextEntryName = Entry(loginFrame, bg='#434343', fg='black', width=30)
-        TextEntryName.place(x=330, y=93)
+        TextEntryEmailIDApplicant = Entry(loginFrame, bg='#434343', fg='white', width=25,font=('Chalet New York',))
+        TextEntryEmailIDApplicant.place(x=280, y=83,height=30)
+
+        TextPasswordAppplicant = Label(loginFrame, text='Password: ', bg='black', fg='white',
+                             font=('Chalet New York',))
+        TextPasswordAppplicant.place(x=195, y=140)
+
+        TextEntryPasswordApplicant = Entry(loginFrame, show='*', bg='#434343', fg='white', width=25,font=('Chalet New York',))
+        TextEntryPasswordApplicant.place(x=280, y=139,height=30)
+
+        TextLabelApplicantName = Label(loginFrame, text='Applicant\nName: ', bg='black', fg='white',
+                              font=('Chalet New York',))
+        TextLabelApplicantName.place(x=195, y=184)
+
+        TextEntryApplicantName = Entry(loginFrame, bg='#434343', fg='white', width=25,font=('Chalet New York',))
+        TextEntryApplicantName.place(x=280, y=193,height=30)
 
         MonthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
                      'November', 'December']
@@ -61,52 +73,131 @@ class Register(Frame):
 
         TextLabelDOB = Label(loginFrame, text='DOB: ', bg='black', fg='white',
                              font=('Chalet New York',))
-        TextLabelDOB.place(x=195, y=140)
+        TextLabelDOB.place(x=195, y=253)
 
         variable1 = IntVar()
-        variable1.set(DayList[0])  # default value
+        variable1.set(DayList[13])  # default value
 
         variable2 = StringVar()
-        variable2.set(MonthList[0])  # default value
+        variable2.set(MonthList[2])  # default value
 
         variable3 = IntVar()
-        variable3.set(YearList[0])  # default value
+        variable3.set(YearList[35])  # default value
 
         DayOption = OptionMenu(loginFrame, variable1, *DayList)
-        DayOption.config(bg='#434343', fg='white')
-        DayOption.place(x=250, y=138)
+        DayOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
+        DayOption.place(x=260, y=250)
 
         MonthOption = OptionMenu(loginFrame, variable2, *MonthList)
-        MonthOption.config(bg='#434343', fg='white')
-        MonthOption.place(x=330, y=138)
+        MonthOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
+        MonthOption.place(x=336, y=250)
 
         YearOption = OptionMenu(loginFrame, variable3, *YearList)
-        YearOption.config(bg='#434343', fg='white')
-        YearOption.place(x=450, y=138)
+        YearOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
+        YearOption.place(x=463, y=250)
 
-        TextLabelPrompt = Label(loginFrame, text='Restart Your Search By Logging In.', bg='black',
-                                fg='white',
-                                font=('Chalet New York', 10))
-        TextLabelPrompt.place(x=235, y=350)
+        TextLabelGender = Label(loginFrame, text='Gender: ', bg='black', fg='white',
+                             font=('Chalet New York',))
+        TextLabelGender.place(x=195, y=311)
 
-        """FRAME THREe: Registration As Company"""
-        self.TextLabelFreshUser = Label(registerFrame, text='Fresher Here?', bg='black', fg='white',
+        GenderList = ['Male', 'Female', 'Others']
+
+        variable4=StringVar()
+        variable4.set(GenderList[0])
+
+        GenderOption = OptionMenu(loginFrame, variable4, *GenderList)
+        GenderOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
+        GenderOption.place(x=275, y=308)
+
+        TextLabelTelNo = Label(loginFrame, text='Tel No. : ', bg='black', fg='white',
+                                font=('Chalet New York',))
+        TextLabelTelNo.place(x=195, y=365)
+
+        TextEntryTelNo = Entry(loginFrame, bg='#434343', fg='white', width=25,font=('Chalet New York',))
+        TextEntryTelNo.place(x=275, y=363, height=30)
+
+        TextExperience = Label(loginFrame, text='Experience: ', bg='black', fg='white',
+                               font=('Chalet New York',))
+        TextExperience.place(x=195, y=415)
+
+        ExperienceList = ['None','1 yr', '2 yrs', '3 yrs', '4 yrs', '4+ yrs', '10+ yrs']
+
+        variable5 = StringVar()
+        variable5.set(ExperienceList[0])
+
+        ExperienceOption = OptionMenu(loginFrame, variable5, *ExperienceList)
+        ExperienceOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
+        ExperienceOption.place(x=290, y=412)
+
+        applicantRegisterButton = Button(loginFrame, text='Register As\nApplicant', width=15, height=2, bg='#434343', fg='white',
+                                      activebackground='#666666',font=('Chalet New York',))
+        applicantRegisterButton.place(x=266, y=476)
+
+        # TextLabelPrompt = Label(loginFrame, text='Restart Your Search By Logging In.', bg='black',
+        #                         fg='white',
+        #                         font=('Chalet New York', 10))
+        # TextLabelPrompt.place(x=235, y=550)
+
+        """FRAME THREE: Registration As Company"""
+        TextLabelCompanyRegister = Label(registerFrame, text='Company Fill Here:', bg='black', fg='white',
                                         font=('Chalet New York', 30))
-        self.TextLabelFreshUser.place(x=215, y=100)
+        TextLabelCompanyRegister.place(x=170, y=0)
 
-        self.TextLabelFirstSteps = Label(registerFrame, text='Take Your First Step!', bg='black',
-                                         fg='white',
-                                         font=('Chalet New York', 20))
-        self.TextLabelFirstSteps.place(x=206, y=175)
+        TextEmailIDCompany = Label(registerFrame, text='Email ID: ', bg='black', fg='white',
+                            font=('Chalet New York',))
+        TextEmailIDCompany.place(x=185, y=85)
 
-        self.TextLabelPrompt = Label(registerFrame, text='Register Your Details.', bg='black',
-                                     fg='white',
-                                     font=('Chalet New York', 10))
-        self.TextLabelPrompt.place(x=277, y=350)
+        TextEntryEmailIDCompany = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        TextEntryEmailIDCompany.place(x=270, y=83, height=30)
 
-        self.register = Button(registerFrame, text='Register', width=20, height=2, bg='#434343', fg='white',
-                               activebackground='#666666')
-        self.register.place(x=266, y=293)
+        TextPasswordCompany = Label(registerFrame, text='Password: ', bg='black', fg='white',
+                             font=('Chalet New York',))
+        TextPasswordCompany.place(x=185, y=140)
+
+        TextEntryPasswordCompany = Entry(registerFrame, show='*', bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        TextEntryPasswordCompany.place(x=270, y=139, height=30)
+
+        TextLabelCompanyName = Label(registerFrame, text='Company\nName: ', bg='black', fg='white',
+                              font=('Chalet New York',))
+        TextLabelCompanyName.place(x=185, y=184)
+
+        TextEntryCompanyName = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        TextEntryCompanyName.place(x=270, y=193, height=30)
+
+        TextCompanyWebsite = Label(registerFrame, text='Website: ', bg='black', fg='white',
+                                   font=('Chalet New York',))
+        TextCompanyWebsite.place(x=185, y=253)
+
+        TextEntryCompanyWebsite = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        TextEntryCompanyWebsite.place(x=270, y=251, height=30)
+
+        TextCompanyLocation = Label(registerFrame, text='Location: ', bg='black', fg='white',
+                                   font=('Chalet New York',))
+        TextCompanyLocation.place(x=185, y=311)
+
+        TextEntryCompanyLocation = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        TextEntryCompanyLocation.place(x=270, y=309, height=30)
+
+        TextCompanyDescription = Label(registerFrame, text='Description: ', bg='black', fg='white',
+                                    font=('Chalet New York',))
+        TextCompanyDescription.place(x=180, y=365)
+
+        TextEntryCompanyDescription = Entry(registerFrame, bg='#434343', fg='white', width=25,font=('Chalet New York',))
+        TextEntryCompanyDescription.place(x=270, y=363, height=30)
+
+        # TextLabelFirstSteps = Label(registerFrame, text='Take Your First Step!', bg='black',
+        #                                  fg='white',
+        #                                  font=('Chalet New York', 20))
+        # TextLabelFirstSteps.place(x=206, y=400)
+
+        CompanyRegisterButton = Button(registerFrame, text='Register As\nCompany', width=15, height=2, bg='#434343', fg='white',
+                                         activebackground='#666666', font=('Chalet New York',))
+        CompanyRegisterButton.place(x=266, y=476)
+
+        # TextLabelPrompt = Label(registerFrame, text='Register Your Details.', bg='black',
+        #                              fg='white',
+        #                              font=('Chalet New York', 10))
+        # TextLabelPrompt.place(x=277, y=500)
 
 
 def createLogin():
