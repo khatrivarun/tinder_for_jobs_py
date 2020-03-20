@@ -76,13 +76,13 @@ class Register(Frame):
         TextLabelDOB.place(x=195, y=253)
 
         variable1 = IntVar()
-        variable1.set(DayList[13])  # default value
+        variable1.set('Day')  # default value
 
         variable2 = StringVar()
-        variable2.set(MonthList[2])  # default value
+        variable2.set('Month')  # default value
 
         variable3 = IntVar()
-        variable3.set(YearList[35])  # default value
+        variable3.set('Year')  # default value
 
         DayOption = OptionMenu(loginFrame, variable1, *DayList)
         DayOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
@@ -103,7 +103,7 @@ class Register(Frame):
         GenderList = ['Male', 'Female', 'Others']
 
         variable4=StringVar()
-        variable4.set(GenderList[0])
+        variable4.set('Select')
 
         GenderOption = OptionMenu(loginFrame, variable4, *GenderList)
         GenderOption.config(bg='#434343', fg='white',height=1,font=('Chalet New York',))
