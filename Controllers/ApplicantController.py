@@ -1,5 +1,6 @@
 from Utilities.HashPassword import *
 from Repositories.ApplicantRepository import ApplicantRepository
+from Controllers.StateController import *
 
 
 class ApplicantController:
@@ -28,10 +29,13 @@ class ApplicantController:
 
     def update(self, applicant_details):
         try:
-            applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
-            applicant = self.repository.update(applicant_details)
+            if middleware():
+                applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
+                applicant = self.repository.update(applicant_details)
 
-            return applicant
+                return applicant
+            else:
+                raise Exception('NOT LOGGED IN')
         except Exception as error:
             return str(error)
 

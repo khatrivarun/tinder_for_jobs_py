@@ -127,5 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.idea/
+.idea
+.idea\workspace.xml
 database.db
+*.xml
