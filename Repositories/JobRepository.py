@@ -53,3 +53,23 @@ class JobRepository:
         job.company_email_id = result[3]
 
         return job
+
+    def update(self, old_location, old_requirements, old_company_email_id, new_location, new_requirements,
+               new_company_email_id):
+        self.connection.execute(
+            '''UPDATE company SET location = ?, requirements = ?, company_email_id = ? WHERE location = ? AND requirements = ? AND company_email_id = ?''',
+            (
+                new_location, new_requirements, new_company_email_id, old_location, old_requirements,
+                old_company_email_id))
+
+        self.connection.commit()
+
+        job = self.get(new_location, new_requirements, new_company_email_id)
+
+        return job
+
+    def delete(self, location, requirements, company_email_id):
+        self.connection.execute('''DELETE FROM job WHERE location = ? AND requirements = ? AND company_email_id = ?''',
+                            (location, requirements, company_email_id))
+
+        self.connection.commit()
