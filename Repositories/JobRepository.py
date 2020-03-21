@@ -40,6 +40,21 @@ class JobRepository:
 
         return jobs_list
 
+    def get_jobs_by_company(self, email_id):
+        jobs_list = list()
+        self.cursor.execute('''SELECT * FROM job WHERE company_email_id = ?''', (email_id,))
+        result = self.cursor.fetchall()
+
+        for row in result:
+            job = Job()
+            job.job_id = row[0]
+            job.location = row[1]
+            job.requirements = row[2]
+            job.company_email_id = row[3]
+            jobs_list.append(job)
+
+        return jobs_list
+
     def get(self, location, requirements, company_email_id):
         job = Job()
 
@@ -70,6 +85,6 @@ class JobRepository:
 
     def delete(self, location, requirements, company_email_id):
         self.connection.execute('''DELETE FROM job WHERE location = ? AND requirements = ? AND company_email_id = ?''',
-                            (location, requirements, company_email_id))
+                                (location, requirements, company_email_id))
 
         self.connection.commit()
