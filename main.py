@@ -2,6 +2,7 @@ from Controllers.ApplicantController import ApplicantController
 from Controllers.StateController import *
 from Controllers.ApplicationController import ApplicationController
 from Controllers.CompanyController import CompanyController
+from Controllers.JobController import JobController
 from Repositories.JoinRepository import JoinRepository
 from Repositories.DomainRepository import DomainRepository
 from Repositories.JobRepository import JobRepository
@@ -33,31 +34,28 @@ import os.path
 
 # jons = JoinRepository()
 # print(jons.get_applicant_with_domain('varun12@varun.com'))
-
+#
 # company_details = {
-#     'email_id': 'varun12@varun.com',
+#     'email_id': 'varun@varun.com',
 #     'password': 'varun123',
-#     'name': 'varun coma ny',
-#     'location': 'njsnd',
-#     'website': 'ndjnd',
-#     'description': 'nsnsjsm'
+#     'name': 'varun company',
+#     'location': 'nj',
+#     'website': 'vc.com',
+#     'description': 'varun'
 # }
 #
 # company = CompanyController()
 # company.register(company_details)
-# print(company.login('varun12@varun.com', 'varun123'))
-
-# job = JobRepository()
-# print(job.create('njs', 'nm', 'varun12@varun.com'))
+# print(company.login('varun@varun.com', 'varun123'))
 
 # jons = JoinRepository()
 # print(jons.get_jobs_with_companies())
 
 # hash = HashPassword()
 # print(hash.verify_password(hash.hash_password('varun'), 'varuN'))
-
+#
 # applicant_details = {
-#     'email_id': 'varun12@varun.com',
+#     'email_id': 'varun@varun.com',
 #     'name': 'varun',
 #     'dob': '12-12-2013',
 #     'gender': 'M',
@@ -66,10 +64,14 @@ import os.path
 #     'experience': '6',
 #     'password': 'varun123'
 # }
-
+#
 # applicant = ApplicantController()
+# application = ApplicationController()
 # print(applicant.register(applicant_details))
 # applicant.login(applicant_details['email_id'], applicant_details['password'])
 # print(get_account())
+# application.like(1, 'varun1@varun.com', 'varun12@varun.com')
+# job = JobController()
+# print(job.add_job('njs', 'nm', 'varun12@varun.com'))
 # logRegister = LoginRegister()
 
