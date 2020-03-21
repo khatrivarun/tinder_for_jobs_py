@@ -1,9 +1,12 @@
 import sqlite3
+import os.path
 
 
 class CreateDatabase:
     def __init__(self):
-        self.conn = sqlite3.connect('database.db')
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "../database.db")
+        self.conn = sqlite3.connect(db_path)
 
         self.conn.execute(''' CREATE TABLE IF NOT EXISTS applicant
             (
@@ -54,6 +57,8 @@ class CreateDatabase:
                 domain_name VARCHAR(100) NOT NULL 
             );
         ''')
+
+        self.conn.commit()
 
 
 if __name__ == '__main__':

@@ -4,11 +4,14 @@ from Models.Company import Company
 from Models.Applicant import Applicant
 from Models.Job import Job
 from Models.Domain import Domain
+import os.path
 
 
 class JoinRepository:
     def __init__(self):
-        self.connection = sqlite3.connect('database.db')
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "../database.db")
+        self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
 
     def get_applicant_with_domain(self, email_id):

@@ -1,10 +1,14 @@
 import sqlite3
 from Models.Job import Job
+import os.path
 
 
 class JobRepository:
     def __init__(self):
-        self.connection = sqlite3.connect('database.db')
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "../database.db")
+        self.connection = sqlite3.connect(db_path)
+        self.connection = sqlite3.connect('../database.db')
         self.cursor = self.connection.cursor()
 
     def create(self, location, requirements, company_email_id):

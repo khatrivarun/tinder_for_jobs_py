@@ -1,10 +1,13 @@
 from Models.Application import Application
 import sqlite3
+import os.path
 
 
 class ApplicationRepository:
     def __init__(self):
-        self.connection = sqlite3.connect('database.db')
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "../database.db")
+        self.connection = sqlite3.connect(db_path)
         self.cursor = self.connection.cursor()
 
     def create(self, job_id, applicant_email_id, company_email_id):
