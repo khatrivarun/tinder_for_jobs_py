@@ -21,6 +21,8 @@ class ApplicantController:
         try:
             applicant = self.repository.get_by_email_id(email)
             if self.hash.verify_password(applicant.password, password):
+                add_login(applicant)
+
                 return applicant
             else:
                 raise Exception('Incorrect Password')
@@ -35,17 +37,29 @@ class ApplicantController:
 
                 return applicant
             else:
-                raise Exception('NOT LOGGED IN')
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)
 
     def delete(self, email, password):
         try:
-            applicant = self.repository.get_by_email_id(email)
-            if self.hash.verify_password(applicant.password, password):
-                self.repository.delete(email)
-                return None
+            if middleware():
+                applicant = self.repository.get_by_email_id(email)
+                if self.hash.verify_password(applicant.password, password):
+                    self.repository.delete(email)
+                    return None
+                else:
+                    raise Exception('Incorrect Password')
             else:
-                raise Exception('Incorrect Password')
+                raise Exception('Not Logged In')
+        except Exception as error:
+            return str(error)
+
+    def logout(self):
+        try:
+            if middleware():
+                log_out()
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)

@@ -1,5 +1,5 @@
 from Repositories.DomainRepository import DomainRepository
-from Models.Domain import Domain
+from Controllers.StateController import *
 
 
 class DomainController:
@@ -8,24 +8,36 @@ class DomainController:
 
     def register(self, email_id, domain_name):
         try:
-            return self.repository.create(email_id, domain_name)
+            if middleware():
+                return self.repository.create(email_id, domain_name)
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)
 
     def get_domains_list(self, email_id):
         try:
-            return self.repository.get(email_id)
+            if middleware():
+                return self.repository.get(email_id)
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)
 
     def get_all_domains(self):
         try:
-            return self.repository.get_all()
+            if middleware():
+                return self.repository.get_all()
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)
 
     def delete_domain(self, email_id, domain_name):
         try:
-            return self.repository.delete(email_id, domain_name)
+            if middleware():
+                return self.repository.delete(email_id, domain_name)
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)

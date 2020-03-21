@@ -1,5 +1,6 @@
 from Utilities.HashPassword import *
 from Repositories.CompanyRepository import CompanyRepository
+from Controllers.StateController import *
 
 
 class CompanyController:
@@ -20,6 +21,8 @@ class CompanyController:
         try:
             company = self.repository.get_by_email_id(email)
             if self.hash.verify_password(company.password, password):
+                add_login(company)
+
                 return company
             else:
                 raise Exception('Incorrect Password')
@@ -28,20 +31,35 @@ class CompanyController:
 
     def update(self, company_details):
         try:
-            company_details['password'] = self.hash.hash_password(company_details['password'])
-            company = self.repository.update(company_details)
+            if middleware():
+                company_details['password'] = self.hash.hash_password(company_details['password'])
+                company = self.repository.update(company_details)
 
-            return company
+                return company
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)
 
     def delete(self, email, password):
         try:
-            company = self.repository.get_by_email_id(email)
-            if self.hash.verify_password(company.password, password):
-                self.repository.delete(email)
-                return None
+            if middleware():
+                company = self.repository.get_by_email_id(email)
+                if self.hash.verify_password(company.password, password):
+                    self.repository.delete(email)
+                    return None
+                else:
+                    raise Exception('Incorrect Password')
             else:
-                raise Exception('Incorrect Password')
+                raise Exception('Not Logged In')
+        except Exception as error:
+            return str(error)
+
+    def logout(self):
+        try:
+            if middleware():
+                log_out()
+            else:
+                raise Exception('Not Logged In')
         except Exception as error:
             return str(error)

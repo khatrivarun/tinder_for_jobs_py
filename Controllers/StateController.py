@@ -12,3 +12,7 @@ def get_account():
 
 def middleware():
     return State.account is not None
+
+
+def log_out():
+    State.account = None
