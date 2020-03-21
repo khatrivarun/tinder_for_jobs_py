@@ -8,7 +8,7 @@ class ApplicationController:
 
     def like(self, job_id, applicant_email_id, company_email_id):
         try:
-            if middleware():
+            if middleware_applicant():
                 return self.repository.create(job_id, applicant_email_id, company_email_id)
             else:
                 raise Exception('Not Logged In')
@@ -17,7 +17,7 @@ class ApplicationController:
 
     def accept(self, job_id, applicant_email_id, company_email_id):
         try:
-            if middleware():
+            if middleware_company():
                 return self.repository.respond(job_id, applicant_email_id, company_email_id, "Accepted")
             else:
                 raise Exception('Not Logged In')
@@ -26,7 +26,7 @@ class ApplicationController:
 
     def reject(self, job_id, applicant_email_id, company_email_id):
         try:
-            if middleware():
+            if middleware_company():
                 return self.repository.respond(job_id, applicant_email_id, company_email_id, "Rejected")
             else:
                 raise Exception('Not Logged In')

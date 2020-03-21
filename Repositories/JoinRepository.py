@@ -19,7 +19,9 @@ class JoinRepository:
         applicant['applicant'] = Applicant()
         applicant['domains'] = list()
 
-        self.cursor.execute('''SELECT * FROM applicant AS a NATURAL JOIN domain WHERE a.email_id = ?''', (email_id,))
+        self.cursor.execute('''
+            SELECT * FROM applicant AS a NATURAL JOIN domain WHERE a.email_id = ?
+        ''', (email_id,))
         result = self.cursor.fetchall()
         applicant['applicant'].email_id = result[0][0]
         applicant['applicant'].name = result[0][1]
@@ -41,7 +43,7 @@ class JoinRepository:
     def get_jobs_with_companies(self):
         jobs = list()
 
-        self.cursor.execute('SELECT * FROM company INNER JOIN job WHERE company.email_id = job.company_email_id')
+        self.cursor.execute('''SELECT * FROM company INNER JOIN job WHERE company.email_id = job.company_email_id''')
         result = self.cursor.fetchall()
 
         for row in result:
@@ -61,3 +63,33 @@ class JoinRepository:
             })
 
         return jobs
+
+    def get_applications_with_applicants(self, job_id):
+        applications = list()
+
+        self.cursor.execute('''
+            SELECT * FROM application a INNER JOIN applicant a2 WHERE a.applicant_email_id = a2.email_id AND a.job_id = ?
+        ''', (job_id,))
+
+        result = self.cursor.fetchall()
+
+        for row in result:
+            applicant = Applicant()
+            application = Application()
+            application.application_id = row[0]
+            application.job_id = row[1]
+            application.company_email_id = row[2]
+            application.applicant_email_id = row[3]
+            application.response = row[4]
+            applicant.email_id = row[5]
+            applicant.name = row[6]
+            applicant.dob = row[7]
+            applicant.gender = row[8]
+            applicant.age = row[9]
+            applicant.experience = row[10]
+            applications.append({
+                'application': application,
+                'applicant': applicant
+            })
+
+        return applications

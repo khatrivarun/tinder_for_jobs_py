@@ -8,7 +8,7 @@ class DomainController:
 
     def register(self, email_id, domain_name):
         try:
-            if middleware():
+            if middleware_applicant():
                 return self.repository.create(email_id, domain_name)
             else:
                 raise Exception('Not Logged In')
@@ -17,7 +17,7 @@ class DomainController:
 
     def get_domains_list(self, email_id):
         try:
-            if middleware():
+            if middleware_applicant():
                 return self.repository.get(email_id)
             else:
                 raise Exception('Not Logged In')
@@ -26,7 +26,7 @@ class DomainController:
 
     def get_all_domains(self):
         try:
-            if middleware():
+            if middleware_applicant():
                 return self.repository.get_all()
             else:
                 raise Exception('Not Logged In')
@@ -35,7 +35,7 @@ class DomainController:
 
     def delete_domain(self, email_id, domain_name):
         try:
-            if middleware():
+            if middleware_applicant():
                 return self.repository.delete(email_id, domain_name)
             else:
                 raise Exception('Not Logged In')

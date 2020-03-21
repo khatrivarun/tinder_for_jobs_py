@@ -31,7 +31,7 @@ class CompanyController:
 
     def update(self, company_details):
         try:
-            if middleware():
+            if middleware_company():
                 company_details['password'] = self.hash.hash_password(company_details['password'])
                 company = self.repository.update(company_details)
 
@@ -43,7 +43,7 @@ class CompanyController:
 
     def delete(self, email, password):
         try:
-            if middleware():
+            if middleware_company():
                 company = self.repository.get_by_email_id(email)
                 if self.hash.verify_password(company.password, password):
                     self.repository.delete(email)
@@ -57,7 +57,7 @@ class CompanyController:
 
     def logout(self):
         try:
-            if middleware():
+            if middleware_company():
                 log_out()
             else:
                 raise Exception('Not Logged In')

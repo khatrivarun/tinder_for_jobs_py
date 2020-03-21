@@ -31,7 +31,7 @@ class ApplicantController:
 
     def update(self, applicant_details):
         try:
-            if middleware():
+            if middleware_applicant():
                 applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
                 applicant = self.repository.update(applicant_details)
 
@@ -43,7 +43,7 @@ class ApplicantController:
 
     def delete(self, email, password):
         try:
-            if middleware():
+            if middleware_applicant():
                 applicant = self.repository.get_by_email_id(email)
                 if self.hash.verify_password(applicant.password, password):
                     self.repository.delete(email)
@@ -57,7 +57,7 @@ class ApplicantController:
 
     def logout(self):
         try:
-            if middleware():
+            if middleware_applicant():
                 log_out()
             else:
                 raise Exception('Not Logged In')

@@ -75,3 +75,5 @@ import os.path
 # print(job.add_job('njs', 'nm', 'varun12@varun.com'))
 # logRegister = LoginRegister()
 
+# join = JoinRepository()
+# print(join.get_applications_with_applicants(1))
