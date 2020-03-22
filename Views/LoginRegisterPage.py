@@ -4,8 +4,10 @@ from tkinter import *
 
 logReg = Tk()
 
+
 def passwordCheck():
     pass
+
 
 class LoginRegister(Frame):
     def __init__(self):
@@ -74,7 +76,7 @@ class LoginRegister(Frame):
         self.registerTextLabelPrompt.place(x=277, y=350)
 
         self.register = Button(self.registerFrame, text='Register', width=20, height=2, bg='#434343', fg='white',
-                               activebackground='#666666',command=lambda: register(logReg))
+                               activebackground='#666666', command=lambda: register(logReg))
         self.register.place(x=266, y=293)
 
 
