@@ -34,31 +34,37 @@ class ApplicantRepository:
         applicant = Applicant()
         self.cursor.execute('''SELECT * FROM applicant WHERE email_id = ? AND password = ?''', (email_id, password))
         result = self.cursor.fetchone()
-        applicant.email_id = result[0]
-        applicant.name = result[1]
-        applicant.dob = result[2]
-        applicant.gender = result[3]
-        applicant.age = result[4]
-        applicant.tel_no = result[5]
-        applicant.experience = result[6]
-        applicant.password = result[7]
+        if result is None:
+            return None
+        else:
+            applicant.email_id = result[0]
+            applicant.name = result[1]
+            applicant.dob = result[2]
+            applicant.gender = result[3]
+            applicant.age = result[4]
+            applicant.tel_no = result[5]
+            applicant.experience = result[6]
+            applicant.password = result[7]
 
-        return applicant
+            return applicant
 
     def get_by_email_id(self, email_id):
         applicant = Applicant()
         self.cursor.execute('''SELECT * FROM applicant WHERE email_id = ?''', (email_id,))
         result = self.cursor.fetchone()
-        applicant.email_id = result[0]
-        applicant.name = result[1]
-        applicant.dob = result[2]
-        applicant.gender = result[3]
-        applicant.age = result[4]
-        applicant.tel_no = result[5]
-        applicant.experience = result[6]
-        applicant.password = result[7]
+        if result is None:
+            return None
+        else:
+            applicant.email_id = result[0]
+            applicant.name = result[1]
+            applicant.dob = result[2]
+            applicant.gender = result[3]
+            applicant.age = result[4]
+            applicant.tel_no = result[5]
+            applicant.experience = result[6]
+            applicant.password = result[7]
 
-        return applicant
+            return applicant
 
     def update(self, applicant_details):
         applicant = Applicant()

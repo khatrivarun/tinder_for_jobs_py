@@ -20,12 +20,14 @@ class ApplicantController:
     def login(self, email, password):
         try:
             applicant = self.repository.get_by_email_id(email)
-            if self.hash.verify_password(applicant.password, password):
-                add_login(applicant)
-
-                return applicant
+            if applicant is not None:
+                if self.hash.verify_password(applicant.password, password):
+                    add_login(applicant)
+                    return applicant
+                else:
+                    raise Exception('Incorrect Password')
             else:
-                raise Exception('Incorrect Password')
+                raise Exception('Email Does Not Exist')
         except Exception as error:
             return str(error)
 

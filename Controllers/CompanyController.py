@@ -20,12 +20,15 @@ class CompanyController:
     def login(self, email, password):
         try:
             company = self.repository.get_by_email_id(email)
-            if self.hash.verify_password(company.password, password):
-                add_login(company)
+            if company is not None:
+                if self.hash.verify_password(company.password, password):
+                    add_login(company)
 
-                return company
+                    return company
+                else:
+                    raise Exception('Incorrect Password')
             else:
-                raise Exception('Incorrect Password')
+                raise Exception('Email Does Not Exist')
         except Exception as error:
             return str(error)
 

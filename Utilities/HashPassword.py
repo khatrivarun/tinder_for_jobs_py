@@ -22,5 +22,4 @@ class HashPassword:
                                       self.salt,
                                       100000)
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
-        print(pwdhash, stored_password)
         return pwdhash == stored_password
