@@ -3,9 +3,9 @@ from tkinter import messagebox
 from re import match
 from Controllers.ApplicantController import ApplicantController
 from Controllers.CompanyController import CompanyController
+from Controllers.StateController import *
 from Models.Company import Company
 from Models.Applicant import Applicant
-from Controllers.StateController import *
 
 
 class Login(Frame):

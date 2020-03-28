@@ -1,8 +1,19 @@
 from tkinter import *
+from re import match
+from tkinter import messagebox
+from Controllers.CompanyController import CompanyController
+from Controllers.ApplicantController import ApplicantController
+from Controllers.StateController import *
+from Models.Company import Company
+from Models.Applicant import Applicant
 
 
 class Register(Frame):
     def __init__(self, logReg):
+        self.email_regex = "^[a-zA-Z0-9._]+@[a-z]+\.(com|co\.in|org|in)$"
+        self.website_regex = "^www\.+[a-z]+\.(com|co\.in|org|in)$"
+        self.applicant = ApplicantController()
+        self.company = CompanyController()
         logReg.destroy()
         registerTk = Tk()
         registerTk.title("tinder For Jobs")
@@ -15,6 +26,45 @@ class Register(Frame):
         self.pack(fill='both', expand=True)
         self.createWidgets()
         registerTk.mainloop()
+
+    def company_register(self):
+        try:
+            email = self.TextEntryEmailIDCompany.get()
+            password = self.TextEntryPasswordCompany.get()
+            name = self.TextEntryCompanyName.get()
+            location = self.TextEntryCompanyLocation.get()
+            website = self.TextEntryCompanyWebsite.get()
+            description = self.TextEntryCompanyDescription.get()
+            email_match = match(self.email_regex, email)
+            web_match = match(self.website_regex, website)
+            company_details = {
+                'email_id': email,
+                'password': password,
+                'name': name,
+                'location': location,
+                'website': website,
+                'description': description
+            }
+            if email == '' or password == '' or name == '' or location == '' or website == '' or description == '':
+                raise Exception('Incomplete Fields')
+            elif email_match is None and email != '':
+                raise Exception('Invalid Email')
+            elif web_match is None and website != '':
+                raise Exception('Invalid Company Website')
+            else:
+                company_details['email_id'] = email_match.group(0)
+                company_details['website'] = web_match.group(0)
+                account = self.company.register(company_details)
+                if type(account) is Company:
+                    print('Success')
+                    print(account)
+                    print(get_account())
+                elif type(account) is str:
+                    raise Exception(str(account))
+                else:
+                    raise Exception("Some Weird Error happened")
+        except Exception as error:
+            messagebox.showinfo("Error During Registration", str(error))
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -148,45 +198,48 @@ class Register(Frame):
                                    font=('Chalet New York',))
         TextEmailIDCompany.place(x=185, y=85)
 
-        TextEntryEmailIDCompany = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryEmailIDCompany.place(x=270, y=83, height=30)
+        self.TextEntryEmailIDCompany = Entry(registerFrame, bg='#434343', fg='white', width=25,
+                                             font=('Chalet New York',))
+        self.TextEntryEmailIDCompany.place(x=270, y=83, height=30)
 
         TextPasswordCompany = Label(registerFrame, text='Password: ', bg='black', fg='white',
                                     font=('Chalet New York',))
         TextPasswordCompany.place(x=185, y=140)
 
-        TextEntryPasswordCompany = Entry(registerFrame, show='*', bg='#434343', fg='white', width=25,
-                                         font=('Chalet New York',))
-        TextEntryPasswordCompany.place(x=270, y=139, height=30)
+        self.TextEntryPasswordCompany = Entry(registerFrame, show='*', bg='#434343', fg='white', width=25,
+                                              font=('Chalet New York',))
+        self.TextEntryPasswordCompany.place(x=270, y=139, height=30)
 
         TextLabelCompanyName = Label(registerFrame, text='Company\nName: ', bg='black', fg='white',
                                      font=('Chalet New York',))
         TextLabelCompanyName.place(x=185, y=184)
 
-        TextEntryCompanyName = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryCompanyName.place(x=270, y=193, height=30)
+        self.TextEntryCompanyName = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        self.TextEntryCompanyName.place(x=270, y=193, height=30)
 
         TextCompanyWebsite = Label(registerFrame, text='Website: ', bg='black', fg='white',
                                    font=('Chalet New York',))
         TextCompanyWebsite.place(x=185, y=253)
 
-        TextEntryCompanyWebsite = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryCompanyWebsite.place(x=270, y=251, height=30)
+        self.TextEntryCompanyWebsite = Entry(registerFrame, bg='#434343', fg='white', width=25,
+                                             font=('Chalet New York',))
+        self.TextEntryCompanyWebsite.place(x=270, y=251, height=30)
 
         TextCompanyLocation = Label(registerFrame, text='Location: ', bg='black', fg='white',
                                     font=('Chalet New York',))
         TextCompanyLocation.place(x=185, y=311)
 
-        TextEntryCompanyLocation = Entry(registerFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryCompanyLocation.place(x=270, y=309, height=30)
+        self.TextEntryCompanyLocation = Entry(registerFrame, bg='#434343', fg='white', width=25,
+                                              font=('Chalet New York',))
+        self.TextEntryCompanyLocation.place(x=270, y=309, height=30)
 
         TextCompanyDescription = Label(registerFrame, text='Description: ', bg='black', fg='white',
                                        font=('Chalet New York',))
         TextCompanyDescription.place(x=180, y=365)
 
-        TextEntryCompanyDescription = Entry(registerFrame, bg='#434343', fg='white', width=25,
-                                            font=('Chalet New York',))
-        TextEntryCompanyDescription.place(x=270, y=363, height=30)
+        self.TextEntryCompanyDescription = Entry(registerFrame, bg='#434343', fg='white', width=25,
+                                                 font=('Chalet New York',))
+        self.TextEntryCompanyDescription.place(x=270, y=363, height=30)
 
         # TextLabelFirstSteps = Label(registerFrame, text='Take Your First Step!', bg='black',
         #                                  fg='white',
@@ -194,7 +247,7 @@ class Register(Frame):
         # TextLabelFirstSteps.place(x=206, y=400)
 
         CompanyRegisterButton = Button(registerFrame, text='Register As\nCompany', width=15, height=2, bg='#434343',
-                                       fg='white',
+                                       fg='white', command=self.company_register,
                                        activebackground='#666666', font=('Chalet New York',))
         CompanyRegisterButton.place(x=266, y=476)
 
@@ -206,3 +259,11 @@ class Register(Frame):
 
 def register(logReg):
     log = Register(logReg)
+
+'''
+create job/delete job
+recruiter - create job, view job(delete button and view applicants)
+applications page
+
+
+'''
