@@ -101,3 +101,25 @@ class JoinRepository:
                 })
 
             return applications
+
+    def get_applied_jobs(self, email_id):
+        applications = list()
+        self.cursor.execute('''
+            SELECT * FROM application WHERE applicant_email_id = ?
+        ''', (email_id,))
+
+        result = self.cursor.fetchall()
+
+        if result is None:
+            return None
+
+        for row in result:
+            application = Application()
+            application.application_id = row[0]
+            application.job_id = row[1]
+            application.company_email_id = row[2]
+            application.applicant_email_id = row[3]
+            application.response = row[4]
+            applications.append(application)
+
+        return applications

@@ -35,18 +35,18 @@ import os.path
 # jons = JoinRepository()
 # print(jons.get_applicant_with_domain('varun12@varun.com'))
 #
-company_details = {
-    'email_id': 'varun@varun.com',
-    'password': 'varun123',
-    'name': 'varun company',
-    'location': 'nj',
-    'website': 'vc.com',
-    'description': 'varun'
-}
-
-company = CompanyController()
-company.register(company_details)
-print(company.login('varun@varun.com', 'varun123'))
+# company_details = {
+#     'email_id': 'varun@varun.com',
+#     'password': 'varun123',
+#     'name': 'varun company',
+#     'location': 'nj',
+#     'website': 'vc.com',
+#     'description': 'varun'
+# }
+#
+# company = CompanyController()
+# company.register(company_details)
+# print(company.login('varun@varun.com', 'varun123'))
 
 # jons = JoinRepository()
 # print(jons.get_jobs_with_companies())
@@ -76,4 +76,4 @@ print(company.login('varun@varun.com', 'varun123'))
 # logRegister = LoginRegister()
 
 # join = JoinRepository()
-# print(join.get_applications_with_applicants(1))
+# print(join.get_applied_jobs('varun1@varun.com'))

@@ -17,11 +17,11 @@ def middleware_general():
 
 
 def middleware_company():
-    return State.account is Company
+    return type(State.account) is Company
 
 
 def middleware_applicant():
-    return State.account is Applicant
+    return type(State.account) is Applicant
 
 
 def log_out():
