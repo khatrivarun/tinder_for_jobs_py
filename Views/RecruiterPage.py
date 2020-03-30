@@ -4,17 +4,17 @@ from tkinter import *
 class Recruiter(Frame):
     def __init__(self, recLogin):
         recLogin.destroy()
-        recruiterTK = Tk()
-        recruiterTK.title("tinder For Jobs")
-        w, h = recruiterTK.winfo_screenwidth(), recruiterTK.winfo_screenheight()
-        recruiterTK.geometry("%dx%d+0+0" % (w, h))
+        self.recruiterTK = Tk()
+        self.recruiterTK.title("tinder For Jobs")
+        w, h = self.recruiterTK.winfo_screenwidth(), self.recruiterTK.winfo_screenheight()
+        self.recruiterTK.geometry("%dx%d+0+0" % (w, h))
         super().__init__()
         self.widthW = w
         self.heightH = h
         self.configure(background='blue')
         self.pack(fill='both', expand=True)
         self.createWidgets()
-        recruiterTK.mainloop()
+        self.recruiterTK.mainloop()
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -73,12 +73,35 @@ class Recruiter(Frame):
         innerFrame = Frame(viewCanvas, bg='black', width=650, height=250)
         innerFrame.place(x=5, y=10)
 
-        for i in range(100):
-            Label(innerFrame, text=i, bg='green', fg='white').pack()
+        self.sampleList = [{'application': 'value00', 'key01': 'value01'},
+                           {'application': 'value10', 'key11': 'value11'},
+                           {'application': 'value20', 'key21': 'value21'},
+                           {'application': 'value30', 'key31': 'value31'}]
+        counter = 0
+        frameList = []
+        for i in self.sampleList:
+            frameList.append(Frame(innerFrame, bg='black'))
+            frameList[-1].pack()
+            keyVar = StringVar(innerFrame, ' ')
+            valueVar = StringVar(innerFrame, ' ')
+            integer = IntVar(innerFrame)
+            for j, k in i.items():
+                if j == 'application':
+                    keyVar = k
+                    Label(frameList[-1], text=keyVar, bg='black', fg='white').grid(row=0, column=0)
+                    Button(frameList[-1], text='Go', bg='#434343', fg='white',
+                           activebackground='#666666',
+                           command=lambda iteration=counter: self.jobsList(iteration)).grid(row=0, column=1)
+            counter += 1
 
         viewCanvas.create_window(0, 0, anchor='nw', window=innerFrame)
         viewCanvas.update_idletasks()
         viewCanvas.configure(scrollregion=viewCanvas.bbox('all'), yscrollcommand=scrollBar.set)
+
+    def jobsList(self, counter):
+        myDict = self.sampleList[counter]
+        print(myDict)
+        # call function here using self.recruiterTK and dictionary
 
 
 def createRecruiter(recLogin):
