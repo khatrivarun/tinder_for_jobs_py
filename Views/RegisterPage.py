@@ -1,9 +1,9 @@
+import datetime
 from tkinter import *
 from re import match
 from tkinter import messagebox
 from Controllers.CompanyController import CompanyController
 from Controllers.ApplicantController import ApplicantController
-from Controllers.StateController import *
 from Models.Company import Company
 from Models.Applicant import Applicant
 
@@ -12,6 +12,7 @@ class Register(Frame):
     def __init__(self, logReg):
         self.email_regex = "^[a-zA-Z0-9._]+@[a-z]+\.(com|co\.in|org|in)$"
         self.website_regex = "^www\.+[a-z]+\.(com|co\.in|org|in)$"
+        self.tel_no_regex = "^[0-9]{10}$"
         self.applicant = ApplicantController()
         self.company = CompanyController()
         logReg.destroy()
@@ -58,7 +59,50 @@ class Register(Frame):
                 if type(account) is Company:
                     print('Success')
                     print(account)
-                    print(get_account())
+                elif type(account) is str:
+                    raise Exception(str(account))
+                else:
+                    raise Exception("Some Weird Error happened")
+        except Exception as error:
+            messagebox.showinfo("Error During Registration", str(error))
+
+    def applicant_register(self):
+        try:
+            email = self.TextEntryEmailIDApplicant.get()
+            password = self.TextEntryPasswordApplicant.get()
+            name = self.TextEntryApplicantName.get()
+            dob = f'{self.variableMonth.get()} {self.variableDay.get()}, {self.variableYear.get()}'
+            dob_final = datetime.datetime.strptime(dob, '%B %d, %Y').date()
+            gender = self.variableGender.get()
+            age = datetime.date.today().year - dob_final.year - (
+                    (datetime.date.today().month, datetime.date.today().day) > (dob_final.month, dob_final.day))
+            tel_no = self.TextEntryTelNo.get()
+            experience = self.variableExp.get()
+            email_match = match(self.email_regex, email)
+            tel_no_match = match(self.tel_no_regex, tel_no)
+            applicant_details = {
+                'email_id': email,
+                'name': name,
+                'dob': dob_final,
+                'gender': gender,
+                'age': age,
+                'tel_no': tel_no,
+                'experience': experience,
+                'password': password
+            }
+            if email == '' or password == '' or name == '' or gender == 'Select' or tel_no == '':
+                raise Exception('Incomplete Fields')
+            elif email_match is None and email != '':
+                raise Exception('Invalid Email')
+            elif tel_no_match is None and tel_no != '':
+                raise Exception('Invalid Number')
+            else:
+                applicant_details['email_id'] = email_match.group(0)
+                applicant_details['tel_no'] = tel_no_match.group(0)
+                account = self.applicant.register(applicant_details)
+                if type(account) is Applicant:
+                    print('Success')
+                    print(account)
                 elif type(account) is str:
                     raise Exception(str(account))
                 else:
@@ -95,23 +139,24 @@ class Register(Frame):
                                      font=('Chalet New York',))
         TextEmailIDApplicant.place(x=195, y=85)
 
-        TextEntryEmailIDApplicant = Entry(loginFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryEmailIDApplicant.place(x=280, y=83, height=30)
+        self.TextEntryEmailIDApplicant = Entry(loginFrame, bg='#434343', fg='white', width=25,
+                                               font=('Chalet New York',))
+        self.TextEntryEmailIDApplicant.place(x=280, y=83, height=30)
 
         TextPasswordAppplicant = Label(loginFrame, text='Password: ', bg='black', fg='white',
                                        font=('Chalet New York',))
         TextPasswordAppplicant.place(x=195, y=140)
 
-        TextEntryPasswordApplicant = Entry(loginFrame, show='*', bg='#434343', fg='white', width=25,
-                                           font=('Chalet New York',))
-        TextEntryPasswordApplicant.place(x=280, y=139, height=30)
+        self.TextEntryPasswordApplicant = Entry(loginFrame, show='*', bg='#434343', fg='white', width=25,
+                                                font=('Chalet New York',))
+        self.TextEntryPasswordApplicant.place(x=280, y=139, height=30)
 
         TextLabelApplicantName = Label(loginFrame, text='Applicant\nName: ', bg='black', fg='white',
                                        font=('Chalet New York',))
         TextLabelApplicantName.place(x=195, y=184)
 
-        TextEntryApplicantName = Entry(loginFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryApplicantName.place(x=280, y=193, height=30)
+        self.TextEntryApplicantName = Entry(loginFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        self.TextEntryApplicantName.place(x=280, y=193, height=30)
 
         MonthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
                      'November', 'December']
@@ -125,24 +170,24 @@ class Register(Frame):
                              font=('Chalet New York',))
         TextLabelDOB.place(x=195, y=253)
 
-        variable1 = IntVar()
-        variable1.set('Day')  # default value
+        self.variableDay = IntVar()
+        self.variableDay.set(DayList[0])  # default value
 
-        variable2 = StringVar()
-        variable2.set('Month')  # default value
+        self.variableMonth = StringVar()
+        self.variableMonth.set(MonthList[0])  # default value
 
-        variable3 = IntVar()
-        variable3.set('Year')  # default value
+        self.variableYear = IntVar()
+        self.variableYear.set(YearList[0])  # default value
 
-        DayOption = OptionMenu(loginFrame, variable1, *DayList)
+        DayOption = OptionMenu(loginFrame, self.variableDay, *DayList)
         DayOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
         DayOption.place(x=260, y=250)
 
-        MonthOption = OptionMenu(loginFrame, variable2, *MonthList)
+        MonthOption = OptionMenu(loginFrame, self.variableMonth, *MonthList)
         MonthOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
         MonthOption.place(x=336, y=250)
 
-        YearOption = OptionMenu(loginFrame, variable3, *YearList)
+        YearOption = OptionMenu(loginFrame, self.variableYear, *YearList)
         YearOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
         YearOption.place(x=463, y=250)
 
@@ -152,19 +197,19 @@ class Register(Frame):
 
         GenderList = ['Male', 'Female', 'Others']
 
-        variable4 = StringVar()
-        variable4.set('Select')
+        self.variableGender = StringVar()
+        self.variableGender.set('Select')
 
-        GenderOption = OptionMenu(loginFrame, variable4, *GenderList)
-        GenderOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
-        GenderOption.place(x=275, y=308)
+        self.GenderOption = OptionMenu(loginFrame, self.variableGender, *GenderList)
+        self.GenderOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
+        self.GenderOption.place(x=275, y=308)
 
         TextLabelTelNo = Label(loginFrame, text='Tel No. : ', bg='black', fg='white',
                                font=('Chalet New York',))
         TextLabelTelNo.place(x=195, y=365)
 
-        TextEntryTelNo = Entry(loginFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
-        TextEntryTelNo.place(x=275, y=363, height=30)
+        self.TextEntryTelNo = Entry(loginFrame, bg='#434343', fg='white', width=25, font=('Chalet New York',))
+        self.TextEntryTelNo.place(x=275, y=363, height=30)
 
         TextExperience = Label(loginFrame, text='Experience: ', bg='black', fg='white',
                                font=('Chalet New York',))
@@ -172,15 +217,15 @@ class Register(Frame):
 
         ExperienceList = ['None', '1 yr', '2 yrs', '3 yrs', '4 yrs', '4+ yrs', '10+ yrs']
 
-        variable5 = StringVar()
-        variable5.set(ExperienceList[0])
+        self.variableExp = StringVar()
+        self.variableExp.set(ExperienceList[0])
 
-        ExperienceOption = OptionMenu(loginFrame, variable5, *ExperienceList)
-        ExperienceOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
-        ExperienceOption.place(x=290, y=412)
+        self.ExperienceOption = OptionMenu(loginFrame, self.variableExp, *ExperienceList)
+        self.ExperienceOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))
+        self.ExperienceOption.place(x=290, y=412)
 
         applicantRegisterButton = Button(loginFrame, text='Register As\nApplicant', width=15, height=2, bg='#434343',
-                                         fg='white',
+                                         fg='white', command=self.applicant_register,
                                          activebackground='#666666', font=('Chalet New York',))
         applicantRegisterButton.place(x=266, y=476)
 
@@ -259,11 +304,3 @@ class Register(Frame):
 
 def register(logReg):
     log = Register(logReg)
-
-'''
-create job/delete job
-recruiter - create job, view job(delete button and view applicants)
-applications page
-
-
-'''

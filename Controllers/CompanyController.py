@@ -10,10 +10,14 @@ class CompanyController:
 
     def register(self, company_details):
         try:
-            company_details['password'] = self.hash.hash_password(company_details['password'])
-            company = self.repository.create(company_details)
+            check = self.repository.get_by_email_id(company_details['email_id'])
+            if check is None:
+                company_details['password'] = self.hash.hash_password(company_details['password'])
+                company = self.repository.create(company_details)
 
-            return company
+                return company
+            else:
+                raise Exception('Email already exists.')
         except Exception as error:
             return str(error)
 
