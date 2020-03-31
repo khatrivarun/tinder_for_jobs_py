@@ -1,9 +1,10 @@
 from tkinter import *
+from Views.ApplicantSelectionByRecruiter import *
 
 
 class Recruiter(Frame):
-    def __init__(self, recLogin):
-        recLogin.destroy()
+    def __init__(self):  # , recLogin):
+        # recLogin.destroy()
         self.recruiterTK = Tk()
         self.recruiterTK.title("tinder For Jobs")
         w, h = self.recruiterTK.winfo_screenwidth(), self.recruiterTK.winfo_screenheight()
@@ -80,7 +81,7 @@ class Recruiter(Frame):
         counter = 0
         frameList = []
         for i in self.sampleList:
-            frameList.append(Frame(innerFrame, bg='black'))
+            frameList.append(Frame(innerFrame, bg='black', bd=1, relief='sunken'))
             frameList[-1].pack()
             keyVar = StringVar(innerFrame, ' ')
             valueVar = StringVar(innerFrame, ' ')
@@ -88,9 +89,9 @@ class Recruiter(Frame):
             for j, k in i.items():
                 if j == 'application':
                     keyVar = k
-                    Label(frameList[-1], text=keyVar, bg='black', fg='white').grid(row=0, column=0)
+                    Label(frameList[-1], text=keyVar, bg='black', fg='white', width=80).grid(row=0, column=0)
                     Button(frameList[-1], text='Go', bg='#434343', fg='white',
-                           activebackground='#666666',
+                           activebackground='#666666', width=10,
                            command=lambda iteration=counter: self.jobsList(iteration)).grid(row=0, column=1)
             counter += 1
 
@@ -101,10 +102,10 @@ class Recruiter(Frame):
     def jobsList(self, counter):
         myDict = self.sampleList[counter]
         print(myDict)
-        # call function here using self.recruiterTK and dictionary
+        createSelectApplicant(self.recruiterTK, myDict)
 
 
-def createRecruiter(recLogin):
-    log = Recruiter(recLogin)
+'''def createRecruiter(recLogin):
+    log = Recruiter(recLogin)'''
 
-# log = Recruiter()
+log = Recruiter()
