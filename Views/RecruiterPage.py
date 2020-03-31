@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from Views.ApplicantSelectionByRecruiter import *
 from Controllers.JobController import JobController
+from Controllers.StateController import *
 
 
 class Recruiter(Frame):
@@ -33,7 +34,7 @@ class Recruiter(Frame):
                 raise Exception('Incomplete Field')
 
             else:
-                self.job.add_job(location=location, requirements=requirement, company_email_id=self.emailId)
+                print(self.job.add_job(location=location, requirements=requirement, company_email_id=self.emailId))
         except Exception as error:
             messagebox.showinfo("Problem while Creating Job", str(error))
 
@@ -98,6 +99,13 @@ class Recruiter(Frame):
                            {'application': 'value10', 'key11': 'value11'},
                            {'application': 'value20', 'key21': 'value21'},
                            {'application': 'value30', 'key31': 'value31'}]
+
+        # Returns a list of Job objects.
+        job_list = self.job.company_jobs(self.emailId)
+        for job_ in job_list:
+            print(job_.requirements)
+            print(job_.location)
+
         counter = 0
         frameList = []
         for i in self.sampleList:
