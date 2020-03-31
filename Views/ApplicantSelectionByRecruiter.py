@@ -63,17 +63,14 @@ class SelectApplicant(Frame):
                   font=('Chalet New York', 15)).grid(row=0, columnspan=2)
 
             Button(frameList[-1], text='Reject', bg='#434343', fg='white',
-                   activebackground='#666666', width=20, height=2,
-                   command=lambda iteration=counter: self.jobsList(iteration)).grid(row=1, column=0)
+                   activebackground='#666666', width=20, height=2).grid(row=1, column=0)
 
             Button(frameList[-1], text='Accept', bg='#434343', fg='white',
-                   activebackground='#666666', width=20, height=2,
-                   command=lambda iteration=counter: self.jobsList(iteration)).grid(row=1, column=1)
-        counter += 1
-
-        viewCanvas.create_window(0, 0, anchor='nw', window=innerFrame)
-        viewCanvas.update_idletasks()
-        viewCanvas.configure(scrollregion=viewCanvas.bbox('all'), yscrollcommand=scrollBar.set)
+                   activebackground='#666666', width=20, height=2).grid(row=1, column=1)
+            counter += 1
+            viewCanvas.create_window(0, 0, anchor='nw', window=innerFrame)
+            viewCanvas.update_idletasks()
+            viewCanvas.configure(scrollregion=viewCanvas.bbox('all'), yscrollcommand=scrollBar.set)
 
 
 def createSelectApplicant(recTK, dictionary):
