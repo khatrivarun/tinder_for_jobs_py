@@ -2,19 +2,19 @@ from tkinter import *
 from tkinter import messagebox
 
 class JobView(Frame):
-    def __init__(self):
-        #logReg.destroy()
-        registerTk = Tk()
-        registerTk.title("tinder For Jobs")
-        w, h = registerTk.winfo_screenwidth(), registerTk.winfo_screenheight()
-        registerTk.geometry("%dx%d+0+0" % (w, h))
+    def __init__(self,loginTk):
+        loginTk.destroy()
+        jobviewTk = Tk()
+        jobviewTk.title("tinder For Jobs")
+        w, h = jobviewTk.winfo_screenwidth(), jobviewTk.winfo_screenheight()
+        jobviewTk.geometry("%dx%d+0+0" % (w, h))
         super().__init__()
         self.widthW = w
         self.heightH = h
         self.configure(background='blue')
         self.pack(fill='both', expand=True)
         self.createWidgets()
-        registerTk.mainloop()
+        jobviewTk.mainloop()
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -105,6 +105,6 @@ class JobView(Frame):
         self.compdesc.set('Online Shopping Platform')
         self.website.set('website_link_for_amazon')
 
-
-log = JobView()
+def jobview(loginTk):
+    log = JobView(loginTk)
 

@@ -6,6 +6,7 @@ from Controllers.CompanyController import CompanyController
 from Controllers.StateController import *
 from Models.Company import Company
 from Models.Applicant import Applicant
+from Views.JobView import *
 
 
 class Login(Frame):
@@ -14,17 +15,17 @@ class Login(Frame):
         self.company = CompanyController()
         self.email_regex = "^[a-zA-Z0-9._]+@[a-z]+\.(com|co\.in|org|in)$"
         logreg.destroy()
-        loginTk = Tk()
-        loginTk.title("tinder For Jobs")
-        w, h = loginTk.winfo_screenwidth(), loginTk.winfo_screenheight()
-        loginTk.geometry("%dx%d+0+0" % (w, h))
+        self.loginTk = Tk()
+        self.loginTk.title("tinder For Jobs")
+        w, h = self.loginTk.winfo_screenwidth(), self.loginTk.winfo_screenheight()
+        self.loginTk.geometry("%dx%d+0+0" % (w, h))
         super().__init__()
         self.widthW = w
         self.heightH = h
         self.configure(background='blue')
         self.pack(fill='both', expand=True)
         self.createWidgets()
-        loginTk.mainloop()
+        self.loginTk.mainloop()
 
     def applicant_login(self):
         try:
@@ -41,9 +42,7 @@ class Login(Frame):
                     raise Exception(account)
                 elif type(account) is Applicant:
                     # SUCCESS CASE FOR APPLICANT --------------------------------------------------------------------------------------
-                    print(get_account())
-                    print(account.email_id)
-                    print('Success')
+                    jobview(self.loginTk)
                 else:
                     raise Exception('Some weird error is happening')
         except Exception as error:
