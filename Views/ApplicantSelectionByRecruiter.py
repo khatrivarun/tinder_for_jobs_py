@@ -2,8 +2,9 @@ from tkinter import *
 
 
 class SelectApplicant(Frame):
-    def __init__(self, recTk):
+    def __init__(self, recTk, dictionary):
         recTk.destroy()
+        self.dictionaryJob = dictionary
         self.selectApplicantTk = Tk()
         self.selectApplicantTk.title("tinder For Jobs")
         w, h = self.selectApplicantTk.winfo_screenwidth(), self.selectApplicantTk.winfo_screenheight()
@@ -46,33 +47,29 @@ class SelectApplicant(Frame):
         innerFrame = Frame(viewCanvas, bg='black', width=650, height=250)
         innerFrame.place(x=5, y=10)
 
-        self.sampleList = [{'application': 'value00', 'key01': 'value01'},
-                           {'application': 'value10', 'key11': 'value11'},
-                           {'application': 'value20', 'key21': 'value21'},
-                           {'application': 'value30', 'key31': 'value31'}]
         counter = 0
         frameList = []
-        for i in self.sampleList:
+        for i in self.dictionaryJob:
             frameList.append(Frame(innerFrame, bg='black', width=self.widthW, bd=1, relief='sunken'))
             frameList[-1].pack()
             keyVar = StringVar(innerFrame, ' ')
             valueVar = StringVar(innerFrame, ' ')
             integer = IntVar(innerFrame)
-            for j, k in i.items():
-                if j == 'application':
-                    keyVar = k
+            # for j, k in i.items():
+            # if j == 'application':
+            keyVar = i
 
-                    Label(frameList[-1], text=keyVar, bg='black', fg='white', width=121, height=5,
-                          font=('Chalet New York', 15)).grid(row=0, columnspan=2)
+            Label(frameList[-1], text=keyVar, bg='black', fg='white', width=121, height=5,
+                  font=('Chalet New York', 15)).grid(row=0, columnspan=2)
 
-                    Button(frameList[-1], text='Reject', bg='#434343', fg='white',
-                           activebackground='#666666', width=20, height=2,
-                           command=lambda iteration=counter: self.jobsList(iteration)).grid(row=1, column=0)
+            Button(frameList[-1], text='Reject', bg='#434343', fg='white',
+                   activebackground='#666666', width=20, height=2,
+                   command=lambda iteration=counter: self.jobsList(iteration)).grid(row=1, column=0)
 
-                    Button(frameList[-1], text='Accept', bg='#434343', fg='white',
-                           activebackground='#666666', width=20, height=2,
-                           command=lambda iteration=counter: self.jobsList(iteration)).grid(row=1, column=1)
-            counter += 1
+            Button(frameList[-1], text='Accept', bg='#434343', fg='white',
+                   activebackground='#666666', width=20, height=2,
+                   command=lambda iteration=counter: self.jobsList(iteration)).grid(row=1, column=1)
+        counter += 1
 
         viewCanvas.create_window(0, 0, anchor='nw', window=innerFrame)
         viewCanvas.update_idletasks()
@@ -80,6 +77,6 @@ class SelectApplicant(Frame):
 
 
 def createSelectApplicant(recTK, dictionary):
-    log = SelectApplicant(recTK)
+    log = SelectApplicant(recTK, dictionary)
 
 # log = SelectApplicant()

@@ -1,10 +1,15 @@
 from tkinter import *
+from tkinter import messagebox
 from Views.ApplicantSelectionByRecruiter import *
+from Controllers.JobController import JobController
 
 
 class Recruiter(Frame):
-    def __init__(self):  # , recLogin):
-        # recLogin.destroy()
+    def __init__(self, recLogin, email):
+        recLogin.destroy()
+        self.emailId = email
+        self.job = JobController()
+        print(self.emailId)
         self.recruiterTK = Tk()
         self.recruiterTK.title("tinder For Jobs")
         w, h = self.recruiterTK.winfo_screenwidth(), self.recruiterTK.winfo_screenheight()
@@ -16,6 +21,21 @@ class Recruiter(Frame):
         self.pack(fill='both', expand=True)
         self.createWidgets()
         self.recruiterTK.mainloop()
+
+    def createJobListing(self):
+        try:
+            requirement = self.requirementsEntry.get('1.0', END)
+            location = self.locationEntry.get()
+
+            # print('requirement: ', requirement)
+            # print('location: ', location)
+            if requirement == '' or location == '':
+                raise Exception('Incomplete Field')
+
+            else:
+                self.job.add_job(location=location, requirements=requirement, company_email_id=self.emailId)
+        except Exception as error:
+            messagebox.showinfo("Problem while Creating Job", str(error))
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -53,11 +73,11 @@ class Recruiter(Frame):
                               font=('Chalet New York', 15))
         locationLabel.place(x=189, y=244)
 
-        self.locationEntry = Entry(createJobFrame, bg='#434343', fg='white', width=40, show='*')
+        self.locationEntry = Entry(createJobFrame, bg='#434343', fg='white', width=40)
         self.locationEntry.place(x=300, y=250)
 
         createJobButton = Button(createJobFrame, text='Create Job', width=20, height=2, bg='#434343', fg='white',
-                                 activebackground='#666666')
+                                 activebackground='#666666', command=self.createJobListing)
         createJobButton.place(x=266, y=293)
 
         """FRAME THREE: Viewing Jobs"""
@@ -88,7 +108,8 @@ class Recruiter(Frame):
             integer = IntVar(innerFrame)
             for j, k in i.items():
                 if j == 'application':
-                    keyVar = k
+                    # keyVar = k
+                    keyVar = f'Job {counter} Requirements: ...'
                     Label(frameList[-1], text=keyVar, bg='black', fg='white', width=80).grid(row=0, column=0)
                     Button(frameList[-1], text='Go', bg='#434343', fg='white',
                            activebackground='#666666', width=10,
@@ -105,7 +126,7 @@ class Recruiter(Frame):
         createSelectApplicant(self.recruiterTK, myDict)
 
 
-'''def createRecruiter(recLogin):
-    log = Recruiter(recLogin)'''
+def createRecruiter(recLogin, email):
+    log = Recruiter(recLogin, email)
 
-log = Recruiter()
+# log = Recruiter()

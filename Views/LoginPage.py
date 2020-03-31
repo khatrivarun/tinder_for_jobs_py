@@ -68,7 +68,7 @@ class Login(Frame):
                     print(account.email_id)
                     print('Success')'''
                     # Call Create Recruiter Function Here
-                    rec.createRecruiter(self.loginTk)
+                    rec.createRecruiter(self.loginTk, email)
 
                 else:
                     raise Exception('Some weird error is happening')
