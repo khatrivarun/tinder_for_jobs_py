@@ -40,6 +40,7 @@ class Login(Frame):
                 if type(account) is str:
                     raise Exception(account)
                 elif type(account) is Applicant:
+                    # SUCCESS CASE FOR APPLICANT --------------------------------------------------------------------------------------
                     print(get_account())
                     print(account.email_id)
                     print('Success')
