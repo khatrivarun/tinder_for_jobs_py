@@ -35,18 +35,18 @@ import os.path
 # jons = JoinRepository()
 # print(jons.get_applicant_with_domain('varun12@varun.com'))
 #
-company_details = {
-    'email_id': 'varun@varun.com',
-    'password': 'varun123',
-    'name': 'varun company',
-    'location': 'nj',
-    'website': 'vc.com',
-    'description': 'varun'
-}
-
-company = CompanyController()
-company.register(company_details)
-print(company.login('varun@varun.com', 'varun123'))
+# company_details = {
+#     'email_id': 'varun@varun.com',
+#     'password': 'varun123',
+#     'name': 'varun company',
+#     'location': 'nj',
+#     'website': 'vc.com',
+#     'description': 'varun'
+# }
+#
+# company = CompanyController()
+# company.register(company_details)
+# print(company.login('varun@varun.com', 'varun123'))
 
 # jons = JoinRepository()
 # print(jons.get_jobs_with_companies())
@@ -54,20 +54,20 @@ print(company.login('varun@varun.com', 'varun123'))
 # hash = HashPassword()
 # print(hash.verify_password(hash.hash_password('varun'), 'varuN'))
 #
-# applicant_details = {
-#     'email_id': 'varun@varun.com',
-#     'name': 'varun',
-#     'dob': '12-12-2013',
-#     'gender': 'M',
-#     'age': '23',
-#     'tel_no': '123',
-#     'experience': '6',
-#     'password': 'varun123'
-# }
+applicant_details = {
+    'email_id': 'daksh@daksh.com',
+    'name': 'daksh',
+    'dob': '12-12-2013',
+    'gender': 'M',
+    'age': '23',
+    'tel_no': '123',
+    'experience': '5',
+    'password': 'daksh123'
+}
 #
-# applicant = ApplicantController()
+applicant = ApplicantController()
 # application = ApplicationController()
-# print(applicant.register(applicant_details))
+print(applicant.register(applicant_details))
 # print(applicant.login(applicant_details['email_id'], applicant_details['password']))
 # print(get_account())
 # application.like(1, 'varun1@varun.com', 'varun12@varun.com')

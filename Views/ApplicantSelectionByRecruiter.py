@@ -1,10 +1,11 @@
 from tkinter import *
+from Controllers.JoinController import *
 
 
 class SelectApplicant(Frame):
-    def __init__(self, recTk, dictionary):
+    def __init__(self, recTk, jobID):
         recTk.destroy()
-        self.dictionaryJob = dictionary
+        self.jobId = jobID
         self.selectApplicantTk = Tk()
         self.selectApplicantTk.title("tinder For Jobs")
         w, h = self.selectApplicantTk.winfo_screenwidth(), self.selectApplicantTk.winfo_screenheight()
@@ -28,7 +29,7 @@ class SelectApplicant(Frame):
         # self.grid_columnconfigure(0, uniform='g1')
         # self.grid_columnconfigure(1, uniform='g1')
         """FRAME ONE FOR LOGO"""
-        welcomeLabel1 = Label(textFrame, text="tinder", bg='green', fg='white', font=('Chalet New York', 50))
+        welcomeLabel1 = Label(textFrame, text="tinder", bg='black', fg='white', font=('Chalet New York', 50))
         welcomeLabel2 = Label(textFrame, text="for Jobs", bg='black', fg='white', font=('Chalet New York', 20))
         welcomeLabel1.place(x=20, y=30)
         welcomeLabel2.place(x=192, y=65)
@@ -47,33 +48,39 @@ class SelectApplicant(Frame):
         innerFrame = Frame(viewCanvas, bg='black', width=650, height=250)
         innerFrame.place(x=5, y=10)
 
-        counter = 0
         frameList = []
-        for i in self.dictionaryJob:
+
+        join = JoinController()
+        applications = join.get_applications(self.jobId)
+
+        for i in applications:
             frameList.append(Frame(innerFrame, bg='black', width=self.widthW, bd=1, relief='sunken'))
             frameList[-1].pack()
-            keyVar = StringVar(innerFrame, ' ')
-            valueVar = StringVar(innerFrame, ' ')
-            integer = IntVar(innerFrame)
-            # for j, k in i.items():
-            # if j == 'application':
-            keyVar = i
 
-            Label(frameList[-1], text=keyVar, bg='black', fg='white', width=121, height=5,
+            nameVar = f"Name: {i['applicant'].name}"
+            emailVar = f"EmailId: {i['applicant'].email_id}"
+            experienceVar = f"Experience: {i['applicant'].experience}"
+
+            Label(frameList[-1], text=nameVar, bg='black', fg='white', width=121, height=5,
                   font=('Chalet New York', 15)).grid(row=0, columnspan=2)
 
+            Label(frameList[-1], text=emailVar, bg='black', fg='white', width=121, height=5,
+                  font=('Chalet New York', 15)).grid(row=1, columnspan=2)
+
+            Label(frameList[-1], text=experienceVar, bg='black', fg='white', width=121, height=5,
+                  font=('Chalet New York', 15)).grid(row=2, columnspan=2)
+
             Button(frameList[-1], text='Reject', bg='#434343', fg='white',
-                   activebackground='#666666', width=20, height=2).grid(row=1, column=0)
+                   activebackground='#666666', width=20, height=2).grid(row=3, column=0)
 
             Button(frameList[-1], text='Accept', bg='#434343', fg='white',
-                   activebackground='#666666', width=20, height=2).grid(row=1, column=1)
-            counter += 1
+                   activebackground='#666666', width=20, height=2).grid(row=3, column=1)
             viewCanvas.create_window(0, 0, anchor='nw', window=innerFrame)
             viewCanvas.update_idletasks()
             viewCanvas.configure(scrollregion=viewCanvas.bbox('all'), yscrollcommand=scrollBar.set)
 
 
-def createSelectApplicant(recTK, dictionary):
-    log = SelectApplicant(recTK, dictionary)
+def createSelectApplicant(recTK, jobID):
+    log = SelectApplicant(recTK, jobID)
 
 # log = SelectApplicant()
