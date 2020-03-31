@@ -1,8 +1,18 @@
 from tkinter import *
+from tkinter import messagebox
+from re import match
+from Controllers.ApplicantController import ApplicantController
+from Controllers.CompanyController import CompanyController
+from Controllers.StateController import *
+from Models.Company import Company
+from Models.Applicant import Applicant
 
 
 class Login(Frame):
     def __init__(self, logreg):
+        self.applicant = ApplicantController()
+        self.company = CompanyController()
+        self.email_regex = "^[a-zA-Z0-9._]+@[a-z]+\.(com|co\.in|org|in)$"
         logreg.destroy()
         loginTk = Tk()
         loginTk.title("tinder For Jobs")
@@ -15,6 +25,50 @@ class Login(Frame):
         self.pack(fill='both', expand=True)
         self.createWidgets()
         loginTk.mainloop()
+
+    def applicant_login(self):
+        try:
+            email = self.emailIdEntryApplicant.get()
+            email_match = match(self.email_regex, email)
+            password = self.passwordEntryApplicant.get()
+            if email == '' or password == '':
+                raise Exception('Incomplete Fields')
+            elif email_match is None and email != '':
+                raise Exception('Invalid Email ID')
+            else:
+                account = self.applicant.login(email_match.group(0), password)
+                if type(account) is str:
+                    raise Exception(account)
+                elif type(account) is Applicant:
+                    print(get_account())
+                    print(account.email_id)
+                    print('Success')
+                else:
+                    raise Exception('Some weird error is happening')
+        except Exception as error:
+            messagebox.showinfo("Problem During Login", str(error))
+
+    def company_login(self):
+        try:
+            email = self.emailIdEntryRecruiter.get()
+            email_match = match(self.email_regex, email)
+            password = self.passwordEntryRecruiter.get()
+            if email == '' or password == '':
+                raise Exception('Incomplete Fields')
+            elif email_match is None and email != '':
+                raise Exception('Invalid Email ID')
+            else:
+                account = self.company.login(email_match.group(0), password)
+                if type(account) is str:
+                    raise Exception(account)
+                elif type(account) is Company:
+                    print(get_account())
+                    print(account.email_id)
+                    print('Success')
+                else:
+                    raise Exception('Some weird error is happening')
+        except Exception as error:
+            messagebox.showinfo("Problem During Login", str(error))
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -56,7 +110,7 @@ class Login(Frame):
         self.passwordEntryApplicant.place(x=300, y=201)
 
         applicantloginButton = Button(loginFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
-                                      activebackground='#666666')
+                                      activebackground='#666666', command=self.applicant_login)
         applicantloginButton.place(x=266, y=293)
 
         """FRAME THREE: Login For Company"""
@@ -79,11 +133,9 @@ class Login(Frame):
         self.passwordEntryRecruiter.place(x=300, y=201)
 
         loginRecruiter = Button(registerFrame, text='Login', width=20, height=2, bg='#434343', fg='white',
-                          activebackground='#666666')
+                                activebackground='#666666', command=self.company_login)
         loginRecruiter.place(x=266, y=293)
 
 
 def createLogin(logreg):
     log = Login(logreg)
-
-

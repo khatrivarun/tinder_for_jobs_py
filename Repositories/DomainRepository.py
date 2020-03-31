@@ -24,22 +24,30 @@ class DomainRepository:
         domains = list()
 
         self.cursor.execute('''SELECT * FROM domain WHERE applicant_email = ?''', email_id)
-        for row in self.cursor:
-            domain = Domain()
-            domain.applicant_email = row[0]
-            domain.domain_name = row[1]
-            domains.append(domain)
+        result = self.cursor.fetchall()
+        if result is None:
+            return None
+        else:
+            for row in result:
+                domain = Domain()
+                domain.applicant_email = row[0]
+                domain.domain_name = row[1]
+                domains.append(domain)
 
-        return domains
+            return domains
 
     def get_all(self):
         domain_list = list()
 
         self.cursor.execute('''SELECT DISTINCT domain_name FROM domain''')
-        for row in self.cursor:
-            domain_list.append(row[0])
+        result = self.cursor.fetchall()
+        if result is None:
+            return None
+        else:
+            for row in result:
+                domain_list.append(row[0])
 
-        return domain_list
+            return domain_list
 
     def update(self, new_email_id, old_email_id, old_domain_name, new_domain_name):
         domain = Domain()

@@ -33,25 +33,31 @@ class CompanyRepository:
         company = Company()
         self.cursor.execute('''SELECT * FROM company WHERE email_id = ? AND password = ?''', (email_id, password))
         result = self.cursor.fetchone()
-        company.email_id = result[0]
-        company.name = result[1]
-        company.location = result[2]
-        company.website = result[3]
-        company.description = result[4]
-        company.password = result[5]
+        if result is None:
+            return None
+        else:
+            company.email_id = result[0]
+            company.name = result[1]
+            company.location = result[2]
+            company.website = result[3]
+            company.description = result[4]
+            company.password = result[5]
 
-        return company
+            return company
 
     def get_by_email_id(self, email_id):
         company = Company()
         self.cursor.execute('''SELECT * FROM company WHERE email_id = ?''', (email_id,))
         result = self.cursor.fetchone()
-        company.email_id = result[0]
-        company.name = result[1]
-        company.location = result[2]
-        company.website = result[3]
-        company.description = result[4]
-        company.password = result[5]
+        if result is None:
+            return None
+        else:
+            company.email_id = result[0]
+            company.name = result[1]
+            company.location = result[2]
+            company.website = result[3]
+            company.description = result[4]
+            company.password = result[5]
 
         return company
 

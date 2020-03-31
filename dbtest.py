@@ -68,7 +68,7 @@ import os.path
 # applicant = ApplicantController()
 # application = ApplicationController()
 # print(applicant.register(applicant_details))
-# applicant.login(applicant_details['email_id'], applicant_details['password'])
+# print(applicant.login(applicant_details['email_id'], applicant_details['password']))
 # print(get_account())
 # application.like(1, 'varun1@varun.com', 'varun12@varun.com')
 # job = JobController()
@@ -76,4 +76,4 @@ import os.path
 # logRegister = LoginRegister()
 
 # join = JoinRepository()
-# print(join.get_applications_with_applicants(1))
+# print(join.get_applied_jobs('varun1@varun.com'))

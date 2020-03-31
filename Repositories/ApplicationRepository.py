@@ -35,13 +35,16 @@ class ApplicationRepository:
             (job_id, applicant_email_id, company_email_id))
         result = self.cursor.fetchone()
 
-        application.application_id = result[0]
-        application.job_id = result[1]
-        application.company_email_id = result[2]
-        application.applicant_email_id = result[3]
-        application.response = result[4]
+        if result is None:
+            return None
+        else:
+            application.application_id = result[0]
+            application.job_id = result[1]
+            application.company_email_id = result[2]
+            application.applicant_email_id = result[3]
+            application.response = result[4]
 
-        return application
+            return application
 
     def get_all(self, job_id):
         application_list = list()
@@ -49,16 +52,19 @@ class ApplicationRepository:
         self.cursor.execute('''SELECT * FROM application WHERE job_id = ?''', job_id)
         result = self.cursor.fetchall()
 
-        for row in result:
-            application = Application()
-            application.application_id = row[0]
-            application.job_id = row[1]
-            application.company_email_id = row[2]
-            application.applicant_email_id = row[3]
-            application.response = row[4]
-            application_list.append(application)
+        if result is None:
+            return None
+        else:
+            for row in result:
+                application = Application()
+                application.application_id = row[0]
+                application.job_id = row[1]
+                application.company_email_id = row[2]
+                application.applicant_email_id = row[3]
+                application.response = row[4]
+                application_list.append(application)
 
-        return application_list
+            return application_list
 
     def respond(self, job_id, applicant_email_id, company_email_id, response):
         application = self.get(job_id, applicant_email_id, company_email_id)

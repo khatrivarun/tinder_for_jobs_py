@@ -33,30 +33,36 @@ class JobRepository:
         self.cursor.execute('''SELECT * FROM job''')
         result = self.cursor.fetchall()
 
-        for row in result:
-            job = Job()
-            job.job_id = row[0]
-            job.location = row[1]
-            job.requirements = row[2]
-            job.company_email_id = row[3]
-            jobs_list.append(job)
+        if result is None:
+            return None
+        else:
+            for row in result:
+                job = Job()
+                job.job_id = row[0]
+                job.location = row[1]
+                job.requirements = row[2]
+                job.company_email_id = row[3]
+                jobs_list.append(job)
 
-        return jobs_list
+            return jobs_list
 
     def get_jobs_by_company(self, email_id):
         jobs_list = list()
         self.cursor.execute('''SELECT * FROM job WHERE company_email_id = ?''', (email_id,))
         result = self.cursor.fetchall()
 
-        for row in result:
-            job = Job()
-            job.job_id = row[0]
-            job.location = row[1]
-            job.requirements = row[2]
-            job.company_email_id = row[3]
-            jobs_list.append(job)
+        if result is None:
+            return None
+        else:
+            for row in result:
+                job = Job()
+                job.job_id = row[0]
+                job.location = row[1]
+                job.requirements = row[2]
+                job.company_email_id = row[3]
+                jobs_list.append(job)
 
-        return jobs_list
+            return jobs_list
 
     def get(self, location, requirements, company_email_id):
         job = Job()
@@ -65,12 +71,15 @@ class JobRepository:
                             (location, requirements, company_email_id))
         result = self.cursor.fetchone()
 
-        job.job_id = result[0]
-        job.location = result[1]
-        job.requirements = result[2]
-        job.company_email_id = result[3]
+        if result is None:
+            return None
+        else:
+            job.job_id = result[0]
+            job.location = result[1]
+            job.requirements = result[2]
+            job.company_email_id = result[3]
 
-        return job
+            return job
 
     def update(self, old_location, old_requirements, old_company_email_id, new_location, new_requirements,
                new_company_email_id):

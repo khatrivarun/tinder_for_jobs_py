@@ -13,10 +13,10 @@ class CreateDatabase:
                 email_id TEXT UNIQUE,
                 name CHARACTER(20) NOT NULL,
                 dob DATE NOT NULL,
-                gender VARCHAR(1) NOT NULL,
+                gender TEXT NOT NULL,
                 age INTEGER(3) NOT NULL,
                 tel_no INTEGER(11) NOT NULL,
-                experience INTEGER(3) NOT NULL,
+                experience TEXT NOT NULL,
                 password TEXT NOT NULL
             );
         ''')

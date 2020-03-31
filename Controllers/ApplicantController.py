@@ -10,22 +10,28 @@ class ApplicantController:
 
     def register(self, applicant_details):
         try:
-            applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
-            applicant = self.repository.create(applicant_details)
+            check = self.repository.get_by_email_id(applicant_details['email_id'])
 
-            return applicant
+            if check is None:
+                applicant_details['password'] = self.hash.hash_password(applicant_details['password'])
+                applicant = self.repository.create(applicant_details)
+                return applicant
+            else:
+                raise Exception('Email already exists')
         except Exception as error:
             return str(error)
 
     def login(self, email, password):
         try:
             applicant = self.repository.get_by_email_id(email)
-            if self.hash.verify_password(applicant.password, password):
-                add_login(applicant)
-
-                return applicant
+            if applicant is not None:
+                if self.hash.verify_password(applicant.password, password):
+                    add_login(applicant)
+                    return applicant
+                else:
+                    raise Exception('Incorrect Password')
             else:
-                raise Exception('Incorrect Password')
+                raise Exception('Email Does Not Exist')
         except Exception as error:
             return str(error)
 
