@@ -15,10 +15,10 @@ class JoinController:
         except Exception as error:
             return str(error)
 
-    def get_jobs(self):
+    def get_jobs(self, applicant_email_id):
         try:
             if middleware_applicant():
-                return self.repository.get_jobs_with_companies()
+                return self.repository.get_jobs_with_companies(applicant_email_id)
             else:
                 raise Exception('Not Logged In')
         except Exception as error:

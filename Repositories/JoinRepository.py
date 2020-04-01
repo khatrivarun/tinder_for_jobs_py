@@ -43,10 +43,15 @@ class JoinRepository:
 
             return applicant
 
-    def get_jobs_with_companies(self):
+    def get_jobs_with_companies(self, applicant_email_id):
         jobs = list()
 
-        self.cursor.execute('''SELECT * FROM company INNER JOIN job WHERE company.email_id = job.company_email_id''')
+        self.cursor.execute('''
+            SELECT * FROM company INNER JOIN job WHERE company.email_id = job.company_email_id
+            AND job.job_id NOT IN (
+                SELECT application.job_id FROM application WHERE applicant_email_id = ?
+            )
+        ''', (applicant_email_id,))
         result = self.cursor.fetchall()
 
         if result is None:
@@ -60,6 +65,7 @@ class JoinRepository:
                 company.location = row[2]
                 company.website = row[3]
                 company.description = row[4]
+                job.job_id = row[6]
                 job.location = row[7]
                 job.requirements = row[8]
                 job.company_email_id = row[9]
