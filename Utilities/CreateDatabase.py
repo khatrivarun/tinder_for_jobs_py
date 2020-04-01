@@ -10,7 +10,7 @@ class CreateDatabase:
 
         self.conn.execute(''' CREATE TABLE IF NOT EXISTS applicant
             (
-                email_id TEXT UNIQUE,
+                email_id TEXT UNIQUE NOT NULL,
                 name CHARACTER(20) NOT NULL,
                 dob DATE NOT NULL,
                 gender TEXT NOT NULL,
