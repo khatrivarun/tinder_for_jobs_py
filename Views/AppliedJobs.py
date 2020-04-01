@@ -63,7 +63,5 @@ class AppliedJobs(Frame):
         JobView.jobview(self.appliedjobTk)
 
 
-
-
 def appliedjobs(jobviewTk):
     log = AppliedJobs(jobviewTk)
