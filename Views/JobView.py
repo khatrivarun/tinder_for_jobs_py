@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
+
+from Views import LoginPage
 from Views.LoginPage import *
 from Views.AppliedJobs import *
 
@@ -125,7 +127,7 @@ class JobView(Frame):
 
     def logout(self):
         messagebox.showinfo('Message','Logout Successfull!')
-        createLogin(self.jobviewTk)
+        LoginPage.createLogin(self.jobviewTk)
 
 
 
