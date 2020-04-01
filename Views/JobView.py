@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 
 from Views import LoginPage
-from Views.LoginPage import *
 from Views.AppliedJobs import *
 
 

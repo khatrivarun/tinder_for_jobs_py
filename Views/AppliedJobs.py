@@ -1,5 +1,5 @@
 from tkinter import *
-from Views.JobView import *
+from Views import JobView
 
 class AppliedJobs(Frame):
     def __init__(self,jobviewTk):
@@ -33,6 +33,11 @@ class AppliedJobs(Frame):
 
 
         """FRAME TWO FOR APPLIED JOBS"""
+        BackButton = Button(AppliedJobsFrame, text='Back', width=10, height=1, bg='#434343',
+                              fg='white',
+                              activebackground='#666666', font=('Chalet New York',),
+                              command=self.back)
+        BackButton.place(x=70, y=480)
 
         listNodes = Listbox(AppliedJobsFrame, width=50, height=20, bg='black',fg='white',font=("Chalet New York", 12))
         listNodes.place(x=550,y=0)
@@ -45,6 +50,11 @@ class AppliedJobs(Frame):
 
         for x in range(100):
             listNodes.insert(END, str(x))
+
+    def back(self):
+        JobView.jobview(self.appliedjobTk)
+
+
 
 
 def appliedjobs(jobviewTk):
