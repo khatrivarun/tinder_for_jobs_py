@@ -37,7 +37,7 @@ class AppliedJobs(Frame):
                               fg='white',
                               activebackground='#666666', font=('Chalet New York',),
                               command=self.back)
-        BackButton.place(x=70, y=480)
+        BackButton.place(x=5, y=0)
 
         listNodes = Listbox(AppliedJobsFrame, width=50, height=20, bg='black',fg='white',font=("Chalet New York", 12))
         listNodes.place(x=550,y=0)
