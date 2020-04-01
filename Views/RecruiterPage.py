@@ -3,6 +3,7 @@ from tkinter import messagebox
 from Views.ApplicantSelectionByRecruiter import *
 from Controllers.JobController import JobController
 from Controllers.StateController import *
+from Views import LoginPage
 
 
 class Recruiter(Frame):
@@ -22,6 +23,9 @@ class Recruiter(Frame):
         self.pack(fill='both', expand=True)
         self.createWidgets()
         self.recruiterTK.mainloop()
+
+    def logOutButton(self):
+        LoginPage.createLogin(self.recruiterTK)
 
     def createJobListing(self):
         try:
@@ -78,12 +82,17 @@ class Recruiter(Frame):
                               font=('Chalet New York', 15))
         locationLabel.place(x=189, y=244)
 
-        self.locationEntry = Text(createJobFrame, bg='#434343', fg='white', width=30, height = 1)
+        self.locationEntry = Text(createJobFrame, bg='#434343', fg='white', width=30, height=1)
         self.locationEntry.place(x=300, y=250)
 
         createJobButton = Button(createJobFrame, text='Create Job', width=20, height=2, bg='#434343', fg='white',
                                  activebackground='#666666', command=self.createJobListing)
         createJobButton.place(x=266, y=293)
+
+        logOutButton = Button(createJobFrame, text='Logout', width=6, height=1, bg='#434343', fg='white',
+                              activebackground='#666666', command=self.logOutButton)
+
+        logOutButton.place(x=0, y=0)
 
         """FRAME THREE: Viewing Jobs"""
         viewJobsLabel = Label(viewJobsFrame, text='Created Jobs: ', bg='black', fg='white',
@@ -99,11 +108,6 @@ class Recruiter(Frame):
         innerFrame = Frame(viewCanvas, bg='black', width=650, height=250)
         innerFrame.place(x=5, y=10)
 
-        self.sampleList = [{'application': 'value00', 'key01': 'value01'},
-                           {'application': 'value10', 'key11': 'value11'},
-                           {'application': 'value20', 'key21': 'value21'},
-                           {'application': 'value30', 'key31': 'value31'}]
-
         # Returns a list of Job objects.
         job_list = self.job.company_jobs(self.emailId)
         # for job_ in job_list:
@@ -113,7 +117,7 @@ class Recruiter(Frame):
 
         counter = 0
         frameList = []
-        
+
         for job in job_list:
             frameList.append(Frame(innerFrame, bg='black', bd=1, relief='sunken'))
             frameList[-1].pack()
@@ -122,10 +126,10 @@ class Recruiter(Frame):
             jobRequirementVar = f'Job Requirements: \n{job.requirements}'
 
             Label(frameList[-1], text=jobRequirementVar, bg='black', fg='white', width=70,
-                  font=('Chalet New York', 10), anchor = W).grid(row=0, column=0)
+                  font=('Chalet New York', 10), anchor=W).grid(row=0, column=0)
 
             Label(frameList[-1], text=jobLocationVar, bg='black', fg='white', width=70,
-                  font=('Chalet New York', 10), anchor = W).grid(row=1)
+                  font=('Chalet New York', 10), anchor=W).grid(row=1)
 
             Button(frameList[-1], text='Go', bg='#434343', fg='white',
                    activebackground='#666666', width=10,
@@ -137,7 +141,7 @@ class Recruiter(Frame):
         viewCanvas.configure(scrollregion=viewCanvas.bbox('all'), yscrollcommand=scrollBar.set)
 
     def jobsList(self, jobID):
-        createSelectApplicant(self.recruiterTK, jobID)
+        createSelectApplicant(self.recruiterTK, jobID, self.emailId)
 
 
 def createRecruiter(recLogin, email):
