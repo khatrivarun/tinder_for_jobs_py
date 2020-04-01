@@ -7,6 +7,7 @@ from Controllers.StateController import *
 from Models.Company import Company
 from Models.Applicant import Applicant
 from Views.JobView import *
+from Views import RecruiterPage as rec
 
 
 class Login(Frame):
