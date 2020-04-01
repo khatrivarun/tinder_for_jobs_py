@@ -60,7 +60,7 @@ class Recruiter(Frame):
         # self.grid_columnconfigure(0, uniform='g1')
         # self.grid_columnconfigure(1, uniform='g1')
         """FRAME ONE FOR LOGO"""
-        welcomeLabel1 = Label(textFrame, text="tinder", bg='green', fg='white', font=('Chalet New York', 50))
+        welcomeLabel1 = Label(textFrame, text="tinder", bg='black', fg='white', font=('Chalet New York', 50))
         welcomeLabel2 = Label(textFrame, text="for Jobs", bg='black', fg='white', font=('Chalet New York', 20))
         welcomeLabel1.place(x=20, y=30)
         welcomeLabel2.place(x=192, y=65)
