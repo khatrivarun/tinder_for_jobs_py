@@ -54,20 +54,20 @@ import os.path
 # hash = HashPassword()
 # print(hash.verify_password(hash.hash_password('varun'), 'varuN'))
 #
-# applicant_details = {
-#     'email_id': 'varun@varun.com',
-#     'name': 'varun',
-#     'dob': '12-12-2013',
-#     'gender': 'M',
-#     'age': '23',
-#     'tel_no': '123',
-#     'experience': '6',
-#     'password': 'varun123'
-# }
+applicant_details = {
+    'email_id': 'daksh@daksh.com',
+    'name': 'daksh',
+    'dob': '12-12-2013',
+    'gender': 'M',
+    'age': '23',
+    'tel_no': '123',
+    'experience': '5',
+    'password': 'daksh123'
+}
 #
-# applicant = ApplicantController()
+applicant = ApplicantController()
 # application = ApplicationController()
-# print(applicant.register(applicant_details))
+print(applicant.register(applicant_details))
 # print(applicant.login(applicant_details['email_id'], applicant_details['password']))
 # print(get_account())
 # application.like(1, 'varun1@varun.com', 'varun12@varun.com')
