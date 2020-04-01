@@ -1,11 +1,15 @@
 from tkinter import *
-from Controllers.JoinController import *
+from Controllers.JoinController import JoinController
+from Controllers.ApplicationController import ApplicationController
 
 
 class SelectApplicant(Frame):
     def __init__(self, recTk, jobID):
         recTk.destroy()
         self.jobId = jobID
+        self.join = JoinController()
+        # I have added Application controller object here --------------------------------------------
+        self.application = ApplicationController()
         self.selectApplicantTk = Tk()
         self.selectApplicantTk.title("tinder For Jobs")
         w, h = self.selectApplicantTk.winfo_screenwidth(), self.selectApplicantTk.winfo_screenheight()
@@ -50,8 +54,11 @@ class SelectApplicant(Frame):
 
         frameList = []
 
-        join = JoinController()
-        applications = join.get_applications(self.jobId)
+        applications = self.join.get_applications(self.jobId)
+
+        # For accepting and rejecting applicants:--------------------------------------------
+        # application.accept(job_id, applicant_email_id, company_email_id)
+        # application.reject(job_id, applicant_email_id, company_email_id)
 
         for i in applications:
             frameList.append(Frame(innerFrame, bg='black', width=self.widthW, bd=1, relief='sunken'))
