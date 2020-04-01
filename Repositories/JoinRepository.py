@@ -111,7 +111,8 @@ class JoinRepository:
     def get_applied_jobs(self, email_id):
         applications = list()
         self.cursor.execute('''
-            SELECT * FROM application WHERE applicant_email_id = ?
+            SELECT c.name, a.response, j.requirements FROM company c INNER JOIN application a INNER JOIN job j
+            WHERE c.email_id = a.company_email_id AND a.job_id = j.job_id AND a.applicant_email_id = ?
         ''', (email_id,))
 
         result = self.cursor.fetchall()
@@ -120,12 +121,10 @@ class JoinRepository:
             return None
 
         for row in result:
-            application = Application()
-            application.application_id = row[0]
-            application.job_id = row[1]
-            application.company_email_id = row[2]
-            application.applicant_email_id = row[3]
-            application.response = row[4]
-            applications.append(application)
+            applications.append({
+                "company_name": row[0],
+                "response": row[1],
+                "job_requirements": row[2]
+            })
 
         return applications
