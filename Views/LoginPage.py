@@ -42,6 +42,7 @@ class Login(Frame):
                     raise Exception(account)
                 elif type(account) is Applicant:
                     # SUCCESS CASE FOR APPLICANT --------------------------------------------------------------------------------------
+                    messagebox.showinfo('Message','Login Successfull!')
                     jobview(self.loginTk)
                 else:
                     raise Exception('Some weird error is happening')

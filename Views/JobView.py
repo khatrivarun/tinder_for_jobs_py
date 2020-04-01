@@ -1,20 +1,23 @@
 from tkinter import *
 from tkinter import messagebox
+from Views.LoginPage import *
+from Views.AppliedJobs import *
+
 
 class JobView(Frame):
     def __init__(self,loginTk):
         loginTk.destroy()
-        jobviewTk = Tk()
-        jobviewTk.title("tinder For Jobs")
-        w, h = jobviewTk.winfo_screenwidth(), jobviewTk.winfo_screenheight()
-        jobviewTk.geometry("%dx%d+0+0" % (w, h))
+        self.jobviewTk = Tk()
+        self.jobviewTk.title("tinder For Jobs")
+        w, h = self.jobviewTk.winfo_screenwidth(), self.jobviewTk.winfo_screenheight()
+        self.jobviewTk.geometry("%dx%d+0+0" % (w, h))
         super().__init__()
         self.widthW = w
         self.heightH = h
         self.configure(background='blue')
         self.pack(fill='both', expand=True)
         self.createWidgets()
-        jobviewTk.mainloop()
+        self.jobviewTk.mainloop()
 
     def createWidgets(self):
         """CREATING FRAMES"""
@@ -44,6 +47,7 @@ class JobView(Frame):
         self.compdesc.set('Companys Description')
         self.website = StringVar()
         self.website.set('Website Link')
+
         JobDescriptionLabel = Label(JobFrame, text='Job Description:', bg='black', fg='white',
                                font=('Chalet New York',20))
         JobDescriptionLabel.place(x=400, y=0)
@@ -90,6 +94,17 @@ class JobView(Frame):
                                  activebackground='#666666', font=('Chalet New York',),command=self.myfuncaccept)
         RightSwipeButton.place(x=790, y=310)
 
+        AppliedJobButton = Button(JobFrame, text='Applied Jobs', width=15, height=2, bg='#434343',
+                                  fg='white',
+                                  activebackground='#666666', font=('Chalet New York',), command=self.applied)
+        AppliedJobButton.place(x=500, y=420)
+
+        LogoutButton = Button(JobFrame, text='Logout', width=15, height=2, bg='#434343',
+                                  fg='white',
+                                  activebackground='#666666', font=('Chalet New York',),
+                                  command=self.logout)
+        LogoutButton.place(x=790, y=420)
+
     def myfuncaccept(self):
         messagebox.showinfo("Info", "Applied Succesfully")
         self.jobdesc.set('Web Developer')
@@ -104,6 +119,15 @@ class JobView(Frame):
         self.compname.set('Amazon')
         self.compdesc.set('Online Shopping Platform')
         self.website.set('website_link_for_amazon')
+
+    def applied(self):
+        appliedjobs(self.jobviewTk)
+
+    def logout(self):
+        messagebox.showinfo('Message','Logout Successfull!')
+        createLogin(self.jobviewTk)
+
+
 
 def jobview(loginTk):
     log = JobView(loginTk)
