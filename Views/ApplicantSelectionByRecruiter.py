@@ -28,12 +28,10 @@ class SelectApplicant(Frame):
 
     def accept(self, applicantEmailId):
         self.application.accept(self.jobId, applicantEmailId, self.companyEmailID)
-        self.statusVar.set('Status: Accepted')
         messagebox.showinfo('Response', 'Applicant Accepted')
 
     def reject(self, applicantEmailId):
         self.application.reject(self.jobId, applicantEmailId, self.companyEmailID)
-        self.statusVar.set('Status: Rejected')
         messagebox.showinfo('Response', 'Applicant Rejected')
 
     def backButton(self):
@@ -87,15 +85,13 @@ class SelectApplicant(Frame):
         # For accepting and rejecting applicants:--------------------------------------------
         # application.accept(job_id, applicant_email_id, company_email_id)
         # application.reject(job_id, applicant_email_id, company_email_id)
-        self.statusVar = StringVar()
 
         for i in applications:
             frameList.append(Frame(innerFrame, bg='black', width=self.widthW, bd=1, relief='sunken'))
             frameList[-1].pack()
-
             nameVar = f"Name: {i['applicant'].name}"
             emailVar = f"EmailId: {i['applicant'].email_id}"
-            self.statusVar.set(f"Status: {i['application'].response}")
+            statusVar = f"Status: {i['application'].response}"
             experienceVar = f"Experience: {i['applicant'].experience}"
 
             Label(frameList[-1], text=nameVar, bg='black', fg='white', width=121, height=3,
@@ -107,7 +103,7 @@ class SelectApplicant(Frame):
             Label(frameList[-1], text=experienceVar, bg='black', fg='white', width=121, height=3,
                   font=('Chalet New York', 15)).grid(row=2, columnspan=2)
 
-            Label(frameList[-1], textvariable=self.statusVar, bg='black', fg='white', width=121, height=3,
+            Label(frameList[-1], text=statusVar, bg='black', fg='white', width=121, height=3,
                   font=('Chalet New York', 15)).grid(row=3, columnspan=2)
 
             Button(frameList[-1], text='Reject', bg='#434343', fg='white',
