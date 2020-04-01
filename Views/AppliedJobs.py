@@ -1,8 +1,13 @@
 from tkinter import *
 from Views import JobView
+from Controllers.JoinController import JoinController
+from Controllers.StateController import *
+
 
 class AppliedJobs(Frame):
-    def __init__(self,jobviewTk):
+    def __init__(self, jobviewTk):
+        self.join = JoinController()
+        self.applicant_email_id = get_account().email_id
         jobviewTk.destroy()
         self.appliedjobTk = Tk()
         self.appliedjobTk.title("tinder For Jobs")
@@ -18,12 +23,15 @@ class AppliedJobs(Frame):
 
     def createWidgets(self):
         """CREATING FRAMES"""
+        # [{'company_name': 'varun company', 'response': 'Applied', 'job_requirements': 'some requiremets... who cares'}]
+        # ESA AAYEGA LIST KE ANDAR DICTIONARY---------------------------------------------------------------------------
+        # SAMJHA?!!!!!!!!!!!!
+        print(self.join.get_applied_jobs(self.applicant_email_id))
         textFrame = Frame(self, bg='black', width=self.widthW, height=self.heightH / 4)
         textFrame.grid(row=0, column=0, columnspan=2)
 
         AppliedJobsFrame = Frame(self, bg='black', width=self.widthW, height=self.heightH * 0.75)
         AppliedJobsFrame.grid()
-
 
         """FRAME ONE FOR LOGO"""
         welcomeLabel1 = Label(textFrame, text="tinder", bg='black', fg='white', font=('Chalet New York', 50))
@@ -31,12 +39,11 @@ class AppliedJobs(Frame):
         welcomeLabel1.place(x=20, y=30)
         welcomeLabel2.place(x=192, y=65)
 
-
         """FRAME TWO FOR APPLIED JOBS"""
         BackButton = Button(AppliedJobsFrame, text='Back', width=10, height=1, bg='#434343',
-                              fg='white',
-                              activebackground='#666666', font=('Chalet New York',),
-                              command=self.back)
+                            fg='white',
+                            activebackground='#666666', font=('Chalet New York',),
+                            command=self.back)
         BackButton.place(x=5, y=0)
 
         viewCanvas = Canvas(AppliedJobsFrame, bg='black', width=670, height=400, bd=0, relief='ridge')
@@ -50,14 +57,12 @@ class AppliedJobs(Frame):
 
         counter = 0
         frameList = []
-        my_dict={
-            {"company_name": 'string', "response": 'string', "job_requirements": 'string'}
-        }
+        # ESA AAYEEEGGGAAAA -------------------------------------------------------------------
+        my_dict = [{'company_name': 'varun company', 'response': 'Applied',
+                    'job_requirements': 'some requiremets... who cares'}]
         for val in my_dict:
             frameList.append(Frame(innerFrame, bg='black', bd=1, relief='sunken'))
             frameList[-1].pack()
-
-
 
     def back(self):
         JobView.jobview(self.appliedjobTk)
