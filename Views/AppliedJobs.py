@@ -2,8 +2,8 @@ from tkinter import *
 from Views import JobView
 
 class AppliedJobs(Frame):
-    def __init__(self):
-        #jobviewTk.destroy()
+    def __init__(self,jobviewTk):
+        jobviewTk.destroy()
         self.appliedjobTk = Tk()
         self.appliedjobTk.title("tinder For Jobs")
         w, h = self.appliedjobTk.winfo_screenwidth(), self.appliedjobTk.winfo_screenheight()
@@ -51,15 +51,13 @@ class AppliedJobs(Frame):
         counter = 0
         frameList = []
         my_dict={
-            {"company_name": string, "response": string, "job_requirements": string}
+            {"company_name": 'string', "response": 'string', "job_requirements": 'string'}
         }
         for val in my_dict:
             frameList.append(Frame(innerFrame, bg='black', bd=1, relief='sunken'))
             frameList[-1].pack()
 
-            nameVar = f"Name: {val['company'].name}"
-            jobdescVar = f"EmailId: {val['job'].email_id}"
-            statusVar = f"Status: {val['application'].response}"
+
 
     def back(self):
         JobView.jobview(self.appliedjobTk)
@@ -67,5 +65,5 @@ class AppliedJobs(Frame):
 
 
 
-#def appliedjobs(jobviewTk):
-log = AppliedJobs()
+def appliedjobs(jobviewTk):
+    log = AppliedJobs(jobviewTk)
