@@ -2,8 +2,8 @@ from tkinter import *
 from Views import JobView
 
 class AppliedJobs(Frame):
-    def __init__(self,jobviewTk):
-        jobviewTk.destroy()
+    def __init__(self):
+        #jobviewTk.destroy()
         self.appliedjobTk = Tk()
         self.appliedjobTk.title("tinder For Jobs")
         w, h = self.appliedjobTk.winfo_screenwidth(), self.appliedjobTk.winfo_screenheight()
@@ -39,17 +39,27 @@ class AppliedJobs(Frame):
                               command=self.back)
         BackButton.place(x=5, y=0)
 
-        listNodes = Listbox(AppliedJobsFrame, width=50, height=20, bg='black',fg='white',font=("Chalet New York", 12))
-        listNodes.place(x=550,y=0)
+        viewCanvas = Canvas(AppliedJobsFrame, bg='black', width=670, height=400, bd=0, relief='ridge')
+        viewCanvas.place(x=450, y=85)
 
-        scrollbar = Scrollbar(AppliedJobsFrame,orient="vertical")
-        scrollbar.config(command=listNodes.yview)
-        scrollbar.place(x=985.5,y=0)
+        scrollBar = Scrollbar(viewCanvas, orient="vertical", command=viewCanvas.yview, bg='green')
+        scrollBar.place(x=655, y=2, height=400)
 
-        listNodes.config(yscrollcommand=scrollbar.set)
+        innerFrame = Frame(viewCanvas, bg='black', width=650, height=250)
+        innerFrame.place(x=5, y=10)
 
-        for x in range(100):
-            listNodes.insert(END, str(x))
+        counter = 0
+        frameList = []
+        my_dict={
+            {"company_name": string, "response": string, "job_requirements": string}
+        }
+        for val in my_dict:
+            frameList.append(Frame(innerFrame, bg='black', bd=1, relief='sunken'))
+            frameList[-1].pack()
+
+            nameVar = f"Name: {val['company'].name}"
+            jobdescVar = f"EmailId: {val['job'].email_id}"
+            statusVar = f"Status: {val['application'].response}"
 
     def back(self):
         JobView.jobview(self.appliedjobTk)
@@ -57,5 +67,5 @@ class AppliedJobs(Frame):
 
 
 
-def appliedjobs(jobviewTk):
-    log = AppliedJobs(jobviewTk)
+#def appliedjobs(jobviewTk):
+log = AppliedJobs()
