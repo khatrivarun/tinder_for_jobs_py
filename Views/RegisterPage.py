@@ -16,17 +16,17 @@ class Register(Frame):
         self.applicant = ApplicantController()
         self.company = CompanyController()
         logReg.destroy()
-        registerTk = Tk()
-        registerTk.title("tinder For Jobs")
-        w, h = registerTk.winfo_screenwidth(), registerTk.winfo_screenheight()
-        registerTk.geometry("%dx%d+0+0" % (w, h))
+        self.registerTk = Tk()
+        self.registerTk.title("tinder For Jobs")
+        w, h = self.registerTk.winfo_screenwidth(), self.registerTk.winfo_screenheight()
+        self.registerTk.geometry("%dx%d+0+0" % (w, h))
         super().__init__()
         self.widthW = w
         self.heightH = h
         self.configure(background='blue')
         self.pack(fill='both', expand=True)
         self.createWidgets()
-        registerTk.mainloop()
+        self.registerTk.mainloop()
 
     def company_register(self):
         try:
@@ -171,13 +171,13 @@ class Register(Frame):
         TextLabelDOB.place(x=195, y=253)
 
         self.variableDay = IntVar()
-        self.variableDay.set(DayList[0])  # default value
+        self.variableDay.set('Day')  # default value
 
         self.variableMonth = StringVar()
-        self.variableMonth.set(MonthList[0])  # default value
+        self.variableMonth.set('Month')  # default value
 
         self.variableYear = IntVar()
-        self.variableYear.set(YearList[0])  # default value
+        self.variableYear.set('Year')  # default value
 
         DayOption = OptionMenu(loginFrame, self.variableDay, *DayList)
         DayOption.config(bg='#434343', fg='white', height=1, font=('Chalet New York',))

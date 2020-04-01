@@ -6,7 +6,7 @@ from Controllers.CompanyController import CompanyController
 from Controllers.StateController import *
 from Models.Company import Company
 from Models.Applicant import Applicant
-from Views import RecruiterPage as rec
+from Views.JobView import *
 
 
 class Login(Frame):
@@ -41,10 +41,9 @@ class Login(Frame):
                 if type(account) is str:
                     raise Exception(account)
                 elif type(account) is Applicant:
-                    '''print(get_account())
-                    print(account.email_id)
-                    print('Success')'''
-                    # Call Create Applicant Function Here
+                    # SUCCESS CASE FOR APPLICANT --------------------------------------------------------------------------------------
+                    messagebox.showinfo('Message','Login Successfull!')
+                    jobview(self.loginTk)
                 else:
                     raise Exception('Some weird error is happening')
         except Exception as error:
