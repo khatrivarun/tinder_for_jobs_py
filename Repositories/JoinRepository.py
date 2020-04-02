@@ -100,7 +100,8 @@ class JoinRepository:
                 applicant.dob = row[7]
                 applicant.gender = row[8]
                 applicant.age = row[9]
-                applicant.experience = row[10]
+                applicant.tel_no = row[10]
+                applicant.experience = row[11]
                 applications.append({
                     'application': application,
                     'applicant': applicant
